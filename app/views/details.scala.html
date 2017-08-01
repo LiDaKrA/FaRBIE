@@ -1,0 +1,19 @@
+@(uid: String,eUri: String,entityType: String )
+@main("Details Page", false, scripts) {
+    <script>
+        var uid = "@uid";
+        var eUri = "@eUri";
+        var eType = "@entityType";
+    </script>
+<div id="skeleton" class="row">
+</div>
+}
+
+@scripts = {
+<script type='text/javascript' src='@routes.Assets.versioned("javascripts/translation.js")'></script>
+<script type='text/javascript' src='@routes.Assets.versioned("javascripts/search.js")'></script>
+<!--<script type='text/javascript' src='@routes.Assets.versioned("javascripts/utilities.js")'></script>-->
+<!--<script type='text/javascript' src='@routes.Assets.versioned("javascripts/results_table.js")'></script>-->
+<!--<script type='text/javascript' src='@routes.Assets.versioned("javascripts/results.js")'></script>-->
+<script type='text/javascript' src='@routes.Assets.versioned("javascripts/details.js")'></script>
+}
