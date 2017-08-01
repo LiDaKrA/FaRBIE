@@ -1,39 +1,39 @@
-# Dockerfile for Fuhsen-reactive
+# Dockerfile for FaRBIE-reactive
 # 1) Build an image using this docker file. Run the following docker command
 #
-#    $ docker build -t lidakra/fuhsen:v1.1.0 .
+#    $ docker build -t lidakra/farbie:v1.1.0 .
 #
-# 2) Test Fuhsen in a container. Run the following docker command for testing
+# 2) Test FaRBIE in a container. Run the following docker command for testing
 #
-#    $ docker run --rm -it -p 9000:9000 --network=fuhsen-net --name fuhsen lidakra/fuhsen:v1.1.0 /bin/bash
+#    $ docker run --rm -it -p 9000:9000 --network=farbie-net --name farbie lidakra/farbie:v1.1.0 /bin/bash
 #
-# 3) Fuhsen needs API keys to access social networks. The keys are stored in conf/application.conf
+# 3) FaRBIE needs API keys to access RDF graphs. The keys are stored in conf/application.conf
 # For security reason the application.conf file on Github does not contain the keys. The config file
 # must be provided in a Docker data volume loaded with the config file. As an example copy the config file in 
-# a folder in the server host (e.g. /home/lidakra/fuhsen-conf) then run a container using an image
+# a folder in the server host (e.g. /home/lidakra/farbie-conf) then run a container using an image
 # already available or a small one like alpine (a small Linux version) mapping the folder with the config file
 # in the host to the folder conf/ in the container.
 # 
-#    $ docker run -d -v /home/lidakra/fuhsen-conf/application.conf:/home/lidakra/fuhsen-1.1.0/conf/application.conf:ro \
-#                                         --name fuhsen-conf alpine echo "Fuhsen Config File"
+#    $ docker run -d -v /home/lidakra/farbie-conf/application.conf:/home/lidakra/farbie-1.1.0/conf/application.conf:ro \
+#                                         --name farbie-conf alpine echo "FaRBIE Config File"
 #
-# 4) Start a container with Fuhsen using the config file in the data volume
+# 4) Start a container with FaRBIE using the config file in the data volume
 #
-#    $ docker run -it -p 9000:9000 --volumes-from fuhsen-conf --name fuhsen lidakra/fuhsen:v1.1.0 /bin/bash 
+#    $ docker run -it -p 9000:9000 --volumes-from farbie-conf --name farbie lidakra/farbie:v1.1.0 /bin/bash 
 #
-# 5) Within the container check that the application.conf is right and start Fuhsen  ./bin/fuhsen
+# 5) Within the container check that the application.conf is right and start FaRBIE  ./bin/farbie
 #
 # 6) Detach from the container with Ctrl-p Ctrl-q
 #
 # The container can be started in detached mode executing the command
 #
-# $ docker run -d -p 9000:9000 --network=fuhsen-net --volumes-from fuhsen-conf --name fuhsen lidakra/fuhsen:v1.1.0
+# $ docker run -d -p 9000:9000 --network=farbie-net --volumes-from farbie-conf --name farbie lidakra/farbie:v1.1.0
 
 
 # Pull base image
 #FROM ubuntu:15.04
 FROM ubuntu
-MAINTAINER Luigi Selmi <luigiselmi@gmail.com>
+MAINTAINER Luigi Selmi <collarad@gmail.com>
 
 #RUN apt-get update && apt-get -y install locales
 RUN locale-gen en_US.UTF-8
@@ -71,17 +71,17 @@ COPY  certs/dataoccrporg.crt $JAVA_HOME/jre/lib/security/
 WORKDIR $JAVA_HOME/jre/lib/security/
 RUN keytool -importcert -alias occrp -keystore cacerts -storepass changeit -file dataoccrporg.crt -noprompt
 
-#Install Fuhsen package from the project folder (create a package using "sbt universal:package-zip-tarball" command)
-COPY target/universal/fuhsen-1.1.0.tgz /home/lidakra/
+#Install FaRBIE package from the project folder (create a package using "sbt universal:package-zip-tarball" command)
+COPY target/universal/farbie-1.1.0.tgz /home/lidakra/
 WORKDIR /home/lidakra/
-RUN tar xvf fuhsen-1.1.0.tgz  
+RUN tar xvf farbie-1.1.0.tgz  
 
 
 # Copy the schema folder (as sbt universal package does not include it by default)
-COPY schema/ /home/lidakra/fuhsen-1.1.0/schema/
+COPY schema/ /home/lidakra/farbie-1.1.0/schema/
 
-# Start Fuhsen
-COPY start_fuhsen.sh /home/lidakra/fuhsen-1.1.0
-WORKDIR /home/lidakra/fuhsen-1.1.0
-RUN ["chmod", "u+x", "start_fuhsen.sh"]
-CMD ./start_fuhsen.sh
+# Start FaRBIE
+COPY start_farbie.sh /home/lidakra/farbie-1.1.0
+WORKDIR /home/lidakra/farbie-1.1.0
+RUN ["chmod", "u+x", "start_farbie.sh"]
+CMD ./start_farbie.sh
