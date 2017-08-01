@@ -481,25 +481,14 @@ class WrapperController @Inject()(ws: WSClient) extends Controller {
   */
 object WrapperController {
   val wrappers = Seq(
+    //Social Networks Graphs
     new GooglePlusWrapper(),
     new TwitterWrapper(),
     new FacebookWrapper(),
-    //Knowledge base
+    //Google RDF knowledge graph
     new GoogleKnowledgeGraphWrapper(),
-    //eCommerce
-    new EBayWrapper(),
-    //Darknet
-    new Tor2WebWrapper(),
-    //Linked leaks
-    new LinkedLeaksWrapper(),
-    //OCCRP
-    new OCCRPWrapper(),
-    //Xing
-    new XingWrapper(),
-    //Elastic Search
-    new ElasticSearchWrapper(),
-    //pipl
-    new PiplWrapper()
+    //Linked leaks RDF Graph
+    new LinkedLeaksWrapper()
   )
   val wrapperMap: Map[String, RestApiWrapperTrait] = wrappers.map { wrapper =>
     (wrapper.sourceLocalName, wrapper)
