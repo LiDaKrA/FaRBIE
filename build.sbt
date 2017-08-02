@@ -37,4 +37,6 @@ enablePlugins(SbtNativePackager)
 // other, legacy style, accesses its actions statically.
 routesGenerator := InjectedRoutesGenerator
 
+herokuAppName in Compile := "pacific-everglades-72884"
+
 fork in run := true

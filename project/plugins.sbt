@@ -22,3 +22,6 @@ addSbtPlugin("com.typesafe.sbt" % "sbt-play-enhancer" % "1.1.0")
 
 // ReactJS Source Compiler
 addSbtPlugin("com.github.ddispaltro" % "sbt-reactjs" % "0.5.2")
+
+// Heroku
+addSbtPlugin("com.heroku" % "sbt-heroku" % "1.0.1")

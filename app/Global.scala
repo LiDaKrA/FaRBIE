@@ -12,10 +12,10 @@ object Global extends GlobalSettings {
 
   override def onStart(app: Application) {
     Logger.info("Application is started!!!")
-    val globalSchema = current.getFile("schema/ontofuhsen.ttl")
-    val fileReader = new FileReader(globalSchema)
-    JenaGlobalSchema.load(fileReader)
-    Logger.info("Model loaded: "+JenaGlobalSchema.isLoaded())
+    //val globalSchema = current.getFile("schema/ontofuhsen.ttl")
+    //val fileReader = new FileReader(globalSchema)
+    //JenaGlobalSchema.load(fileReader)
+    //Logger.info("Model loaded: "+JenaGlobalSchema.isLoaded())
   }
 
 }
