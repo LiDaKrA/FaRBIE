@@ -3,4 +3,6 @@ Linked Data brings countless RDF Knowledge Graphs to the Web. Faceted Browsing i
 
 The reactive approach implemented in FaRBIE allows the interface to react adequately to the uncertainty imposed by the intrinsic nature of RDF Graphs, thus enhancing the user experience. FaRBIE is composed of reactive User Interface components, refined from common Faceted Browsing UIs, and improved by means of reactive design patterns.
 
+![proof-of-concept](https://user-images.githubusercontent.com/4923203/28950538-f0a883da-78c4-11e7-967d-044a647c1889.png)
+
 Note: The source code is on initial version!!!
