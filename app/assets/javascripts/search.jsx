@@ -335,12 +335,20 @@ var SearchBox = React.createClass({
                     <div className="col-md-3"/>
                     <div className="col-md-6">
                         <form method="get" id={this.props.id_class} role="search" action={context+"/results"} onSubmit={this.handleSubmit}>
-                            <div>
+                            {/*<div>
                                 <label ><span>Search: </span></label>
                                 <input type="search" name="query" placeholder={getTranslation("yoursearch")}/>&nbsp;
                                 <input type="hidden" name="sources" value={selected_sources}/>
                                 <input type="hidden" name="types" value={selected_types}/>
                                 <button type="submit">&nbsp;</button>
+                            </div>*/}
+                            <div className="input-group">
+                                <input type="text" className="form-control" placeholder={getTranslation("yoursearch")} id="inputGroup"/>
+                                <input type="hidden" name="sources" value={selected_sources}/>
+                                <input type="hidden" name="types" value={selected_types}/>
+                                <span className="input-group-addon">
+                                    <i className="fa fa-search"></i>
+                                </span>
                             </div>
                             <div>
                                 <div className="floatingSelText">

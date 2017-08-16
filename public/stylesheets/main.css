@@ -79,7 +79,7 @@
 }
 
 div.floatingSelText {
-    width: 506px;
+    /*width: 506px;*/
     /*border:1px solid #ccc;*/
     text-align:left;
     position: relative;
@@ -111,7 +111,7 @@ div.accessTokenDiv .socialNetworkName {
     background:#ffffff;
     padding:10px;
     border:1px solid #45639A;
-    width: 506px;
+    width: 575px;
     z-index:999;
     position:relative;
     margin: 0 auto;
@@ -1051,10 +1051,10 @@ header .language-widget form,.header .language-widget form {
 
 #form-search input {
     font-size: 1.25em;
-    width: 506px;
+    /* width: 506px; */
     height: 38px !important;
     line-height: 40px;
-    float: left;
+    /* float: left; */
     padding-left: 10px;
 }
 
@@ -2128,5 +2128,16 @@ a[href^="http"]:not(.no-external-link-icon):not([href^="http://localhost"]):not(
 .no-external-link-icon{
     text-decoration: underline;
     color: blue;
+    background-color: transparent;
+}
+
+.input-group.input-group-unstyled input.form-control {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+.input-group-unstyled .input-group-addon {
+    border-radius: 4px;
+    border: 0px;
     background-color: transparent;
 }
