@@ -1,0 +1,51 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# User Interface routes
+GET     /                                                   controllers.Application.index()
+GET     /results                                            controllers.Application.results()
+GET     /details                                            controllers.Application.details(uid: String,eUri: String ,entityType: String)
+GET     /keyword                                            controllers.Application.getKeyword()
+GET     /screenshot                                         controllers.de.fuhsen.engine.ScreenshotController.screenshots(url: String)
+GET     /checkOnionSite                                     controllers.de.fuhsen.engine.ScreenshotController.checkOnionSite(site: String)
+
+# Search Engine API routes
+POST    /engine/api/searches                                controllers.de.fuhsen.engine.SearchEngineController.startSession(query: String)
+GET     /engine/api/searches/:uid/results                   controllers.de.fuhsen.engine.SearchEngineController.search(uid: String, entityType: String, facets: Option[String], sources: String, types: String, exact: Boolean, loadMoreResults: Option[Boolean])
+DELETE  /engine/api/searches/:uid                           controllers.de.fuhsen.engine.SearchEngineController.stopSession(uid: String)
+POST    /engine/api/searches/:uid/facets                    controllers.de.fuhsen.engine.FacetsController.getGeneratedFacets(uid: String, entityType: String, lang: String, exact: Boolean)
+GET     /engine/api/searches/:uid/results_stat              controllers.de.fuhsen.engine.SearchEngineController.calculateSearchStat(uid: String)
+GET     /engine/api/searches/:uid/metadata                  controllers.de.fuhsen.engine.SearchEngineController.getSearchMetadata(uid: String)
+GET     /engine/api/searches/test                           controllers.de.fuhsen.engine.TestEngineController.testEngine(query: String)
+
+#Mini-task services enriching the results graph
+#POST    /engine/api/queryprocessing                         controllers.de.fuhsen.engine.QueryProcessingController.execute
+POST    /engine/api/federatedquery                          controllers.de.fuhsen.engine.FederatedQueryController.execute(loadMoreResults: Option[Boolean])
+POST    /engine/api/datacuration                            controllers.de.fuhsen.engine.DataCurationController.execute
+POST    /engine/api/entitysummarization                     controllers.de.fuhsen.engine.EntitySummarizationController.execute
+POST    /engine/api/semanticranking                         controllers.de.fuhsen.engine.SemanticRankingController.execute
+GET     /engine/api/entitysummarization/:uid/summarize      controllers.de.fuhsen.engine.EntitySummarizationController.summarizeEntity(uid: String, entityType :String,uri: String)
+
+# Global Schema API routes
+GET     /engine/api/schema/datasources                      controllers.de.fuhsen.engine.SchemaController.getSourceList
+GET     /engine/api/schema/entitytypes                      controllers.de.fuhsen.engine.SchemaController.getEntityTypeList
+
+# REST API Wrappers
+POST    /ldw/restApiWrapper/id/:wrapperId/search            controllers.de.fuhsen.wrappers.WrapperController.search(wrapperId: String, query: String)
+POST    /ldw/restApiWrapper/search                          controllers.de.fuhsen.wrappers.WrapperController.searchMultiple(query: String, wrapperIds: String)
+GET     /ldw/restApiWrapper                                 controllers.de.fuhsen.wrappers.WrapperController.wrapperIds()
+
+GET     /:wrapperId/getToken                                controllers.de.fuhsen.wrappers.security.TokenRetrievalController.getToken(wrapperId: String)
+GET     /:wrapperId/code2token                              controllers.de.fuhsen.wrappers.security.TokenRetrievalController.code2token(code:String, wrapperId: String)
+GET     /:wrapperId/code2tokenX                             controllers.de.fuhsen.wrappers.security.TokenRetrievalController.code2tokenX(wrapperId: String, oauth_token:String, oauth_verifier:String)
+GET     /:wrapperId/getTokenLifeLength                      controllers.Application.TokenLifeLength(wrapperId: String)
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file                                       controllers.Assets.versioned(path="/public", file: Asset)
+GET     /webjars/*file                                      controllers.WebJarAssets.at(file)
+
+# RDF Graph Services
+GET    /:graphUid/merge                                    controllers.de.fuhsen.engine.RdfGraphController.mergeEntities(graphUid: String, uri1: String, uri2: String)
+GET    /:graphUid/favorites                                controllers.de.fuhsen.engine.RdfGraphController.getFavorites(graphUid: String)
+POST   /:graphUid/favorites                                controllers.de.fuhsen.engine.RdfGraphController.addToFavorites(graphUid: String, uri: String)
