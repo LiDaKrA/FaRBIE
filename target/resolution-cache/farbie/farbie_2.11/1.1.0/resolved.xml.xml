@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:e="http://ant.apache.org/ivy/extra">
+	<info organisation="farbie"
+		module="farbie_2.11"
+		revision="1.1.0"
+		status="integration"
+		publication="20170816104845"
+	>
+		<description>
+		farbie
+		</description>
+	</info>
+	<configurations>
+		<conf name="compile" visibility="public" description=""/>
+		<conf name="runtime" visibility="public" description="" extends="compile"/>
+		<conf name="test" visibility="public" description="" extends="runtime"/>
+		<conf name="provided" visibility="public" description=""/>
+		<conf name="optional" visibility="public" description=""/>
+		<conf name="compile-internal" visibility="private" description="" extends="compile,optional,provided"/>
+		<conf name="runtime-internal" visibility="private" description="" extends="runtime,optional"/>
+		<conf name="test-internal" visibility="private" description="" extends="test,optional,provided"/>
+		<conf name="plugin" visibility="private" description=""/>
+		<conf name="sources" visibility="public" description=""/>
+		<conf name="docs" visibility="private" description=""/>
+		<conf name="pom" visibility="public" description=""/>
+		<conf name="scala-tool" visibility="private" description=""/>
+	</configurations>
+	<publications>
+		<artifact name="farbie_2.11" type="pom" ext="pom" conf="pom"/>
+		<artifact name="farbie_2.11" type="jar" ext="jar" conf="compile"/>
+		<artifact name="farbie_2.11" type="src" ext="jar" conf="sources" e:classifier="sources"/>
+		<artifact name="farbie_2.11" type="doc" ext="jar" conf="docs" e:classifier="javadoc"/>
+	</publications>
+	<dependencies>
+		<dependency org="org.scala-lang" name="scala-compiler" rev="2.11.6" conf="scala-tool->default,optional(default)"/>
+		<dependency org="org.scala-lang" name="scala-library" rev="2.11.6" conf="scala-tool->default,optional(default);compile->default(compile)"/>
+		<dependency org="com.typesafe.play" name="twirl-api_2.11" rev="1.1.1" conf="compile->default(compile)"/>
+		<dependency org="com.typesafe.play" name="play-enhancer" rev="1.1.0" conf="compile->default(compile)"/>
+		<dependency org="com.typesafe.play" name="play-server_2.11" rev="2.4.6" conf="compile->default(compile)"/>
+		<dependency org="com.typesafe.play" name="play-test_2.11" rev="2.4.6" conf="test->default(compile)"/>
+		<dependency org="com.typesafe.play" name="play-omnidoc_2.11" rev="2.4.6" conf="docs->default(compile)"/>
+		<dependency org="com.typesafe.play" name="play-netty-server_2.11" rev="2.4.6" conf="compile->default(compile)"/>
+		<dependency org="com.typesafe.play" name="play-cache_2.11" rev="2.4.6" conf="compile->default(compile)"/>
+		<dependency org="com.typesafe.play" name="play-java-ws_2.11" rev="2.4.6" conf="compile->default(compile)"/>
+		<dependency org="org.apache.jena" name="apache-jena-libs" rev="3.0.1" conf="compile->default(compile)"/>
+		<dependency org="junit" name="junit" rev="4.12" conf="test->default(compile)"/>
+		<dependency org="org.mockito" name="mockito-all" rev="1.9.5" conf="test->default(compile)"/>
+		<dependency org="org.scalatest" name="scalatest_2.11" rev="2.2.6" conf="test->default(compile)"/>
+		<dependency org="com.typesafe.play" name="anorm_2.11" rev="2.4.0" conf="compile->default(compile)"/>
+		<dependency org="org.webjars" name="webjars-play_2.11" rev="2.4.0-1" conf="compile->default(compile)"/>
+		<dependency org="org.webjars" name="bootstrap" rev="3.3.7" conf="compile->default(compile)"/>
+		<dependency org="org.webjars" name="flat-ui" rev="bcaf2de95e" conf="compile->default(compile)"/>
+		<dependency org="org.webjars" name="react" rev="0.13.3" conf="compile->default(compile)"/>
+		<dependency org="org.webjars" name="marked" rev="0.3.2" conf="compile->default(compile)"/>
+		<dependency org="org.webjars" name="font-awesome" rev="4.7.0" conf="compile->default(compile)"/>
+		<dependency org="org.webjars" name="jszip" rev="3.1.0" conf="compile->default(compile)"/>
+		<dependency org="org.webjars" name="jszip-utils" rev="0.0.2" conf="compile->default(compile)"/>
+		<dependency org="org.webjars.bower" name="FileSaver.js" rev="0.0.2" conf="compile->default(compile)"/>
+	</dependencies>
+</ivy-module>

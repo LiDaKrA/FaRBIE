@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="SBT: com.github.andrewoma.dexx:dexx-collections:0.2:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.github.andrewoma.dexx/dexx-collections/jars/dexx-collections-0.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.github.andrewoma.dexx/dexx-collections/srcs/dexx-collections-0.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
