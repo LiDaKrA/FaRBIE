@@ -247,17 +247,9 @@ var SearchBox = React.createClass({
     },
     getInitialState: function() {
         var typesForSource= {};
-        typesForSource["facebook"] = ["person"];
-        typesForSource["twitter"] = ["person"];
-        typesForSource["xing"] = ["person"];
-        typesForSource["gplus"] = ["person","organization"];
         typesForSource["linkedleaks"] = ["person","organization"];
         typesForSource["gkb"] = ["person","organization"];
-        typesForSource["ebay"] = ["product"];
-        typesForSource["occrp"] = ["document"];
-        typesForSource["tor2web"]  = ["website"];
-        typesForSource["elasticsearch"]  = ["website"];
-        //typesForSource["pipl"] = ["person"];
+        typesForSource["dbpedia"]  = ["person","organization","product"];
 
         return { showSourcesTypesDiv: false, sources: [] , types: [],typesForSource: typesForSource,allowed_types: []};
     },
