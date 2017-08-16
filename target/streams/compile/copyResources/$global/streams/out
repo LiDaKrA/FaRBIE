@@ -1,4 +1,0 @@
-[0m[[0mdebug[0m] [0mCopy resource mappings: [0m
-[0m[[0mdebug[0m] [0m	(/Volumes/LuisBookSD/ThesisRepo/Original/FaRBIE/FaRBIE/conf/application.conf,/Volumes/LuisBookSD/ThesisRepo/Original/FaRBIE/FaRBIE/target/scala-2.11/classes/application.conf)[0m
-[0m[[0mdebug[0m] [0m	(/Volumes/LuisBookSD/ThesisRepo/Original/FaRBIE/FaRBIE/conf/logback.xml,/Volumes/LuisBookSD/ThesisRepo/Original/FaRBIE/FaRBIE/target/scala-2.11/classes/logback.xml)[0m
-[0m[[0mdebug[0m] [0m	(/Volumes/LuisBookSD/ThesisRepo/Original/FaRBIE/FaRBIE/conf/routes,/Volumes/LuisBookSD/ThesisRepo/Original/FaRBIE/FaRBIE/target/scala-2.11/classes/routes)[0m

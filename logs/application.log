@@ -1,7 +1,0 @@
-2017-08-16 10:56:12,309 [INFO] from play.core.server.NettyServer in pool-4-thread-2 - Listening for HTTP on /0:0:0:0:0:0:0:0:9000
-2017-08-16 11:06:09,239 [INFO] Slf4jLogger started
-2017-08-16 11:06:10,180 [INFO] Application is started!!!
-2017-08-16 11:06:10,837 [INFO] Model loaded: true
-2017-08-16 11:06:10,843 [INFO] Application started (Dev)
-2017-08-16 11:06:11,514 [INFO] Source List
-2017-08-16 11:06:11,516 [INFO] Entity Type List
