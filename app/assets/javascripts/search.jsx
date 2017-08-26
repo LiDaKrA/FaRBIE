@@ -27,14 +27,14 @@ var SearchContainer = React.createClass({
             <div>
                 <div className="row">
                     <div className="col-md-12 text-right">
-                        <SettingsBar onlangselect={this.setLang}/>
+                        <LanguageBar onlangselect={this.setLang}/>
                     </div>
                 </div>
                 <div className="row">
                     <link rel="stylesheet" media="screen" href={context+"/assets/stylesheets/startPage.css"}>
                         <div className="col-md-12 search-widget">
                             <div>
-                                <img src={context+"/assets/images/Logo_ico-gray.png"} className="bigLogo" alt="Logo_Description" height="150" width="407"/>
+                                <img src={context+"/assets/images/Logo_ico-gray.png"} className="bigLogo" alt="Logo_Description" height="150" width="407" align="middle"/>
                             </div>
                             <div className="row">
                                 <div className="col-md-12 text-center">
@@ -94,7 +94,16 @@ var KeywordsFile = React.createClass({
     }
 });
 
+//To be implemented, the previous attempt was not successful
 var SettingsBar = React.createClass({
+
+    render: function() {
+
+    }
+})
+
+//TO be replaced by SettingsBar
+var LanguageBar = React.createClass({
     preSetLang: function(lang, e) {
         window.localStorage.lang = lang
         this.props.onlangselect()
