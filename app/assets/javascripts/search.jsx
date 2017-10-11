@@ -28,6 +28,12 @@ var SearchContainer = React.createClass({
                 <div className="row">
                     <div className="col-md-12 text-right">
                         <LanguageBar onlangselect={this.setLang}/>
+
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-12 text-right">
+                        <SettingsBar />
                     </div>
                 </div>
                 <div className="row">
@@ -94,15 +100,8 @@ var KeywordsFile = React.createClass({
     }
 });
 
-//To be implemented, the previous attempt was not successful
-var SettingsBar = React.createClass({
-
-    render: function() {
-
-    }
-})
-
 //TO be replaced by SettingsBar
+
 var LanguageBar = React.createClass({
     preSetLang: function(lang, e) {
         window.localStorage.lang = lang
@@ -127,16 +126,59 @@ var LanguageBar = React.createClass({
                     <b>EN</b>
                 </div>)
         }
-        <div className="row">
-            <div className="col-md-6 text-center">
-                <AccessTokenForm social_network="facebook" />
-            </div>
-            <div className="col-md-6 text-center">
-                <AccessTokenForm social_network="xing" />
-            </div>
-        </div>
     }
 });
+
+//To be improved
+var SettingsBar = React.createClass({
+    preSetLang: function (lang, e) {
+        window.localStorage.lang = lang
+        this.props.onlangselect()
+    },
+    settingsBar_dropdown: function () {
+        if (!event.target.matches('.settingsBar_dropbtn')) {
+
+            var dropdowns = document.getElementsByClassName("settingsBar_dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('settingsBar_drop')) {
+                    openDropdown.classList.remove('settingsBar_drop');
+                }
+            }
+        }
+    },
+    render: function () {
+        let boundClickEng = this.preSetLang.bind(this, 'en');
+        let boundClickGer = this.preSetLang.bind(this, 'de');
+        /*let boundClickDropdown = this.settingsBar_dropdown(this, 'settingsBar_dropbtn');*/
+
+        if (window.localStorage.getItem("lang") === "de") {
+            return (
+                <div className="settingsBar">
+                    <a className="settingsBar_dropdown" href="#"><i className="fa fa-gears" ></i><div className="settingsBar_dropdown-content">
+                        <a href="#">File<i className="ffa fa-file-text"></i></a>
+                    </div></a>
+                    <a className="settingsBar_sourcesOff" href="#">0    <i className="fa fa-refresh"></i></a>
+                    <a href="#" onClick={boundClickEng}><strong>EN    </strong><i
+                        className="fa fa-caret-down"></i></a>
+                </div>
+            )
+        } else {
+            return (
+                <div className="settingsBar">
+                    <a className="settingsBar_dropdown" href="#"><i className="fa fa-gears" ></i><div className="settingsBar_dropdown-content">
+                        <a href="#">File<i className="ffa fa-file-text"></i></a>
+                    </div></a>
+                    <a className="settingsBar_sourcesOff" href="#"><strong>0    </strong><i className="fa fa-refresh"></i></a>
+                    <a href="#" onClick={boundClickGer}><strong>DE    </strong><i
+                        className="fa fa-caret-down"></i></a>
+                </div>
+            )
+        }
+    }
+
+})
 
 var SearchBox = React.createClass({
     getSelectionLabel: function(){

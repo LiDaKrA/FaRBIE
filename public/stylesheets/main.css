@@ -823,25 +823,132 @@ header .header-spacer,.header .header-spacer {
 }
 
 
+/*- settings bar section */
+
+.settingsBar {
+    float: right;
+    position: static;
+    display: inline-flex;
+    width: 25%;
+    background-color: #fff;
+    overflow: auto;
+}
+
+.settingsBar a {
+    float: left;
+    width: 20%;
+    text-align: center;
+    padding: 12px 0;
+    transition: all 0.1s ease;
+    color: #333;
+    font-size: 18px;
+}
+
+.settingsBar a:hover, .settingsBar_dropbtn:focus{
+    background-color: #333;
+    color: #2B78E4 !important;
+    /*color: white;*/
+}
+
+.settingsBar_sourcesOff {
+    color: red !important;
+}
+
+.settingsBar_active {
+    color: #2B78E4 !important;
+}
+
+
+
+.settingsBar_dropbtn {
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.settingsBar_dropdown {
+    float: right;
+    position: relative;
+    display: inline-block;
+}
+
+.settingsBar_dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    right: 0;
+    z-index: 1;
+}
+
+.settingsBar_dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.settingsBar_dropdown a:hover {background-color: #f1f1f1}
+
+
+.settingsBar_drop {display:block;}
+
+/*
 .settings-bar-png li {margin-left:0;position:relative;margin-bottom:0.5em;}
 
-.settings-bar-png li:nth-child(1n):before {display:inline-block;width:200px;height:70px;content:"";
-    background-repeat:no-repeat;background-size: 100% 100%;margin-right:10px;}
+.settings-bar-png li:nth-child(1n):before {display:inline-block;width:200px;height:100px;content:"";
+    background-repeat:no-repeat;background-size: 100% 100%;margin-right:20px;}
 .settings-bar-png li:nth-child(1):before {
-    background: url(../images/FaRBIE_icons/settings-black.png) no-repeat center;
-    width: 64px;
-    height: 64px;
+    background: url("../images/FaRBIE_icons/settings-black.png") no-repeat center;
+    width: 1em;
+    height: 1em;
 }
 .settings-bar-png li:nth-child(2):before {
-    background: url(../images/FaRBIE_icons/sourcetokens-red.png) no-repeat center;
-    width: 64px;
-    height: 64px;
+    background: url("../images/FaRBIE_icons/sourcetokens-red.png") no-repeat center;
+    width: 1em;
+    height: 1em;
 }
 .settings-bar-png li:nth-child(3):before {
-    background: url(../images/FaRBIE_icons/caret-down-black.png) no-repeat right;
-    width: 14px;
-    height: 14px;
+    background: url("../images/FaRBIE_icons/caret-down-black.png") no-repeat right;
+    width: 1em;
+    height: 1em;
+}*/
+
+
+
+/*- views bar section */
+
+.viewsBar {
+    float: right;
+    position: relative;
+    display: inline-block;
+    width: 50%;
+    background-color: #fff;
+    overflow: auto;
 }
+
+.viewsBar a {
+    float: left;
+    width: 20%;
+    text-align: center;
+    padding: 12px 0;
+    transition: all 0.1s ease;
+    color: #333;
+    font-size: 36px;
+}
+
+.viewsBar a:hover {
+    background-color: #333;
+    color: white;
+}
+
+.viewsBar_active {
+    color: #2B78E4 !important;
+}
+
 
 
 header .selector,.header .selector {
