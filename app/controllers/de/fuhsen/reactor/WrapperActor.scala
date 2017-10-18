@@ -21,7 +21,7 @@ class WrapperActor(wrapper: RestApiWrapperTrait, out: ActorRef) extends Actor {
 
   def receive = {
     case msg: StartSearch =>
-      out ! ("I received your message: " + msg)
+      out ! ResultsFound(wrapper.sourceLocalName, "Results found")
   }
 
 }
@@ -35,7 +35,9 @@ class LogicKeeperActor(out: ActorRef) extends Actor {
 
   def receive = {
     case msg: StartSearch =>
-      out ! ("I received your message: " + msg)
+      watchers.foreach(_ ! msg)
+    case msg: ResultsFound =>
+      out ! ("Results found: " + msg.wrapperName)
   }
 
 }
@@ -47,7 +49,7 @@ object LogicKeeperActor {
 
 case class StartSearch(query: String)
 
-case class ResultsFound(rdf: String)
+case class ResultsFound(wrapperName: String, rdf: String)
 
 case class ResultsUpdate(rdf: String)
 
