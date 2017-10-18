@@ -10,6 +10,9 @@ GET     /keyword                                            controllers.Applicat
 GET     /screenshot                                         controllers.de.fuhsen.engine.ScreenshotController.screenshots(url: String)
 GET     /checkOnionSite                                     controllers.de.fuhsen.engine.ScreenshotController.checkOnionSite(site: String)
 
+#React Services
+GET     /ws/search                                          controllers.de.fuhsen.reactor.LogicKeeperController.socket
+
 # Search Engine API routes
 POST    /engine/api/searches                                controllers.de.fuhsen.engine.SearchEngineController.startSession(query: String)
 GET     /engine/api/searches/:uid/results                   controllers.de.fuhsen.engine.SearchEngineController.search(uid: String, entityType: String, facets: Option[String], sources: String, types: String, exact: Boolean, loadMoreResults: Option[Boolean])
