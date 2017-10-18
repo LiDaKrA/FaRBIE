@@ -152,7 +152,6 @@ var SettingsBar = React.createClass({
         let boundClickEng = this.preSetLang.bind(this, 'en');
         let boundClickGer = this.preSetLang.bind(this, 'de');
         /*let boundClickDropdown = this.settingsBar_dropdown(this, 'settingsBar_dropbtn');*/
-
         if (window.localStorage.getItem("lang") === "de") {
             return (
                 <div className="settingsBar">
@@ -317,6 +316,7 @@ var SearchBox = React.createClass({
             alert("Datasource or EntityType is not selected!!. Please Select at least one Datasource and entitytype");
             return false;
         }
+        $("#form-search").submit();
         return true;
     },
     render: function() {
@@ -386,10 +386,10 @@ var SearchBox = React.createClass({
                                 <button type="submit">&nbsp;</button>
                             </div>*/}
                             <div className="input-group">
-                                <input type="text" className="form-control" placeholder={getTranslation("yoursearch")} id="inputGroup"/>
+                                <input type="text" name="query" className="form-control" placeholder={getTranslation("yoursearch")} id="inputGroup"/>
                                 <input type="hidden" name="sources" value={selected_sources}/>
                                 <input type="hidden" name="types" value={selected_types}/>
-                                <span className="input-group-addon">
+                                <span className="input-group-addon" onClick={this.handleSubmit}>
                                     <i className="fa fa-search"></i>
                                 </span>
                             </div>

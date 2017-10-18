@@ -21,6 +21,7 @@ class WrapperActor(wrapper: RestApiWrapperTrait, out: ActorRef) extends Actor {
 
   def receive = {
     case msg: StartSearch =>
+      //To-do search
       out ! ResultsFound(wrapper.sourceLocalName, "Results found")
   }
 
@@ -45,7 +46,6 @@ class LogicKeeperActor(out: ActorRef) extends Actor {
 object LogicKeeperActor {
   lazy val logicKeeperActor: ActorRef = Akka.system.actorOf(Props(classOf[LogicKeeperActor]))
 }
-
 
 case class StartSearch(query: String)
 

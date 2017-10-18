@@ -70,8 +70,10 @@ var ContainerResults = React.createClass({
                                 <div className="col-md-5 toolbar search-header hidden-phone text-right">
                                     <div className="row">
                                         <div className="col-md-12">
+                                            {/*
                                             <LangSwitcher onlangselect={this.setLang}/>
                                             <SearchForm id_class="form-search-header" keyword={query}/>
+                                            */}
                                         </div>
                                     </div>
                                 </div>
@@ -175,18 +177,18 @@ var Container = React.createClass({
 
                 if(err.toString().includes("Not Acceptable")){
                     alert(getTranslation("no_valid_token_found"))
-                    window.location.href = "/fuhsen";
+                    window.location.href = "/farbie";
                 }else if(err.toString().includes("timeout")){
                     //alert(getTranslation("timeout"));
                     var r = confirm(getTranslation("timeout"));
                     if (r == true)
                         window.location.reload();
                     else
-                        window.location.href = "/fuhsen";
+                        window.location.href = "/farbie";
                 }else{
                     alert(getTranslation("internal_server_error"));
                     //Todo remove this hardcoded value
-                    window.location.href = "/fuhsen";
+                    window.location.href = "/farbie";
                 }
             }.bind(this)
             ,timeout: 100000 // sets timeout to 100 seconds
