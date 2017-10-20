@@ -59,49 +59,37 @@ var ContainerResults = React.createClass({
                     <div className="row" id="header-main-row">
                         <nav className="widget col-md-12" data-widget="NavigationWidget">
                             <div className="row">
-                                <div className="col-md-4">
+                                <div className="col-md-2">
                                     <a href={context === "" ? "/" : context}>
                                         <img src={context + "/assets/images/Logo_ico-gray.png"} className="smallLogo" height="64" width="178" alt="Logo_Description" align="left" />
                                     </a>
                                 </div>
-                                {/*<div className="col-md-12 text-center">
-                                    <SearchBox id_class="form-search" lang = {this.state.dictionary}/>
-                                </div>*/}
-                                <div className="col-md-3">
-                                </div>
-                                <div className="col-md-12 text-right">
+                                <div className="col-md-10 text-right">
                                     <SettingsBar onlangselect={this.setLang}/>
                                 </div>
-                                <div className="col-md-5 toolbar search-header hidden-phone text-right">
-                                    <div className="row">
-                                        <div className="col-md-12">
-                                            {/*
-                                            <LangSwitcher onlangselect={this.setLang}/>
-                                            <SearchForm id_class="form-search-header" keyword={query}/>
-                                            */}
-                                        </div>
-                                    </div>
-                                </div>
+
                             </div>
                         </nav>
                     </div>
                 </div>
 
                 <div className="row search-results-container">
-                    {/*Start adding the components here!!!*/}
                     {/*
-                       <Trigger url={context + "/engine/api/searches?query=" + query} pollInterval={200000}/>
+                        <WebSocketConnector />
+                        <Trigger url={context + "/engine/api/searches?query=" + query} pollInterval={200000}/>
                     */}
-                    <div className="row">
-                        <div className="col-md-3 text-center">
+                    <div className="col-md-3">
+                        <div className="row">
                             <SourcesInfoBox />
                         </div>
+                        <div className="row">
+                            <FacetedBar />
+                        </div>
+                    </div>
+                    <div>
+                        <ResultsContainer />
                     </div>
                 </div>
-
-                <a href="http://www.bdk.de/lidakra" target="_blank" className="no-external-link-icon">
-                    <div id="logo-mini" title={getTranslation("sponsored_by")}/>
-                </a>
 
             </div>
         );
@@ -413,6 +401,141 @@ var SearchBox = React.createClass({
                     </div>
                 </div>
             </div>
+        );
+    }
+});
+
+var ResultsContainer = React.createClass({
+    render: function () {
+        return (
+            <div className="col-md-9">
+                <ul id="search-results" className="search-results">
+                    <ul className="results-list list-unstyled">
+                        <PersonResultElement
+                            uri = "http://dbpedia.org/resource/Mauricio_Macri"
+                            id = "1234"
+                            img= "https://upload.wikimedia.org/wikipedia/commons/1/12/Mauricio_Macri_Foto_de_Prensa2.jpg"
+                            name= "Mauricio Macri"
+                            source= "twitter"
+                            alias={null}
+                            location={null}
+                            label={null}
+                            comment={null}
+                            gender="male"
+                            occupation="Actor"
+                            birthday="2009-08-07"
+                            country="Germany"
+                            webpage=""
+                            active_email={null}
+                            wants={null}
+                            haves={null}
+                            top_haves={null}
+                            interests={null}
+                            jsonResult = {null}
+                            uid = {null}
+                            onAddLink={null}
+                            onFavourite={null}>
+                        </PersonResultElement>
+                    </ul>
+                </ul>
+            </div>
+        );
+    }
+});
+
+var FacetedBar = React.createClass({
+    render: function () {
+        return (
+            <div>
+                <div className="facets-container hidden-phone">
+                    <div className="facets-head">
+                        &nbsp;
+                    </div>
+                    <div className="js facets-list bt bb">
+                        <FacetedItem label="Person" name="Person"/>
+                        <FacetedItem label="Organization" name="Organization"/>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+});
+
+var FacetedItem = React.createClass({
+    render: function () {
+        return (
+            <div className="facets-item bt bb bl br">
+                <a className="h3">{this.props.label}</a>
+                <div id={"" + this.props.name + ""}>
+                </div>
+            </div>
+        );
+    }
+});
+
+var PersonResultElement = React.createClass({
+    render: function () {
+        var detailsPageUri = context + "/details?entityType=person" + "&eUri=" + this.props.uri + "&uid=" + this.props.uid;
+        var screenShotElement = (null);
+        return (
+            <li className="item bb">
+                <div className="summary row">
+                    <div className="thumbnail-wrapper col-md-2">
+                        <div className="thumbnail">
+                            { this.props.img !== undefined ? <img src={this.props.img} height="60px" width="75px"/> :
+                                <img src={context + "/assets/images/datasources/Unknown.png"} height="60px"
+                                     width="75px"/> }
+                        </div>
+                    </div>
+                    <div className="summary-main-wrapper col-md-8">
+                        <div className="summary-main">
+                            <a href={detailsPageUri} target="_blank">
+                                <h2 className="title">
+                                    {this.props.name}
+                                </h2>
+                            </a>
+                            <div className="subtitle">
+                                { this.props.alias !== undefined ?
+                                    <p>{getTranslation("nick")}: {this.props.alias}</p> : null }
+                                { this.props.location !== undefined ?
+                                    <p>{getTranslation("location")}: {this.props.location}</p> : null }
+                                { this.props.gender !== undefined ?
+                                    <p>{getTranslation("gender")}: {this.props.gender}</p> : null }
+                                { this.props.occupation !== undefined ?
+                                    <p>{getTranslation("occupation")}: {this.props.occupation}</p> : null }
+                                { this.props.birthday !== undefined ?
+                                    <p>{getTranslation("birthday")}: {this.props.birthday}</p> : null }
+                                { this.props.country !== undefined ?
+                                    <p>{getTranslation("country")}: {this.props.country}</p> : null }
+                                { this.props.label !== undefined ? <p>{this.props.label}</p> : null }
+                                { this.props.comment !== undefined ? <p>{this.props.comment}</p> : null }
+                                { this.props.webpage !== undefined ?
+                                    <p><b>{getTranslation("link")}: </b>
+                                        <a href={this.props.webpage} target="_blank">{this.props.webpage}</a>
+                                        {screenShotElement}</p>
+                                    : null }
+                                { this.props.active_email !== undefined ?
+                                    <p><b>{getTranslation("active_email")}:</b> {this.props.active_email}</p> : null }
+                                { this.props.wants !== undefined ?
+                                    <p><b>{getTranslation("wants")}:</b> {this.props.wants}</p> : null }
+                                { this.props.haves !== undefined ?
+                                    <p><b>{getTranslation("haves")}:</b> {this.props.haves}</p> : null }
+                                { this.props.top_haves !== undefined && this.props.top_haves !== "null" ?
+                                    <p><b>{getTranslation("top_haves")}:</b> {this.props.top_haves}</p> : null }
+                                { this.props.interests !== undefined ?
+                                    <p><b>{getTranslation("interests")}:</b> {this.props.interests}</p> : null }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="thumbnail-wrapper col-md-1">
+                        <div className="thumbnail">
+                            <img src={context + "/assets/images/datasources/" + this.props.source + ".png"}
+                                 alt={"Information from " + this.props.source} height="45" width="45"
+                                 title={this.props.source}/>
+                        </div>
+                    </div>
+                </div>
+            </li>
         );
     }
 });

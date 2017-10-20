@@ -15,6 +15,8 @@ trait GlobalSchemaTrait {
 
   def load (fileReader: FileReader)
 
+  def load (fileReader: String)
+
   def getModel() : Model
 
   def getDataSources() : Model
@@ -54,6 +56,14 @@ object JenaGlobalSchema extends GlobalSchemaTrait {
     } finally {
       br.close()
     }*/
+  }
+
+  override def load(ontology: String) {
+    if (!this.isLoaded()) {
+      model = RDFUtil.rdfStringToModel(ontology, Lang.TURTLE)
+      loaded = true
+    } else
+      Logger.error("Model is already loaded")
   }
 
   override def isLoaded() : Boolean = {
