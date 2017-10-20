@@ -822,13 +822,63 @@ header .header-spacer,.header .header-spacer {
     background-color: #EEEEEE !important;
 }
 
+/*- sources infobox section */
+
+.sourcesInfoBox {
+    float: left;
+    position: static;
+    display: inline-block;
+    width: 13em;
+    height: 3em;
+    background-color: #CCC;
+    overflow: hidden;
+    text-align: center;
+}
+
+.sourcesInfoBox a {
+    float: left;
+    width: 20%;
+    text-align: center;
+    padding: 12px 0;
+    transition: all 0.1s ease;
+    color: #333;
+}
+
+.sourcesInfoBox_success {
+    color: forestgreen !important;
+    font-size: 12px;
+}
+
+.sourcesInfoBox_fail {
+    color: red !important;
+    font-size: 12px;
+}
+
+.sourcesInfoBox_loader {
+    color: #333 !important;
+    font-size: 18px;
+    float: none;
+    position: static;
+     /*animation: spin 2s linear infinite;*/
+ }
+
+.sourcesInfoBox_info {
+    position: static !important;
+    color: #085394 !important;
+    font-size: 12px;
+}
+
+/*@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}*/
 
 /*- settings bar section */
 
 .settingsBar {
     float: right;
     position: static;
-    display: inline-flex;
+    display: inline-block;
     width: 25%;
     background-color: #fff;
     overflow: auto;

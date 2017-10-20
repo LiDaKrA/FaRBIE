@@ -27,13 +27,7 @@ var SearchContainer = React.createClass({
             <div>
                 <div className="row">
                     <div className="col-md-12 text-right">
-                        <LanguageBar onlangselect={this.setLang}/>
-
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-md-12 text-right">
-                        <SettingsBar />
+                        <SettingsBar onlangselect={this.setLang}/>
                     </div>
                 </div>
                 <div className="row">
@@ -159,7 +153,7 @@ var SettingsBar = React.createClass({
                         <a href="#">File<i className="ffa fa-file-text"></i></a>
                     </div></a>
                     <a className="settingsBar_sourcesOff" href="#">0    <i className="fa fa-refresh"></i></a>
-                    <a href="#" onClick={boundClickEng}><strong>EN    </strong><i
+                    <a href="#" onClick={boundClickEng}><strong>DE    </strong><i
                         className="fa fa-caret-down"></i></a>
                 </div>
             )
@@ -170,7 +164,7 @@ var SettingsBar = React.createClass({
                         <a href="#">File<i className="ffa fa-file-text"></i></a>
                     </div></a>
                     <a className="settingsBar_sourcesOff" href="#"><strong>0    </strong><i className="fa fa-refresh"></i></a>
-                    <a href="#" onClick={boundClickGer}><strong>DE    </strong><i
+                    <a href="#" onClick={boundClickGer}><strong>EN    </strong><i
                         className="fa fa-caret-down"></i></a>
                 </div>
             )
