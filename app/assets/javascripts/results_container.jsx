@@ -452,9 +452,23 @@ var FacetedBar = React.createClass({
                         &nbsp;
                     </div>
                     <div className="js facets-list bt bb">
-                        <FacetedItem label="Person" name="Person"/>
-                        <FacetedItem label="Organization" name="Organization"/>
+                        <FacetedType label="Person" name="Person"/>
+                        <FacetedType label="Organization" name="Organization"/>
                     </div>
+                </div>
+            </div>
+        );
+    }
+});
+
+var FacetedType = React.createClass({
+    render: function () {
+        return (
+            <div className="facets-group bt bb bl br">
+                <a className="h3">{this.props.label}</a>
+                <div id={"" + this.props.name + ""}>
+                    <FacetedItem label="Title" name="Title"/>
+                    <FacetedItem label="Full Name" name="FullName"/>
                 </div>
             </div>
         );

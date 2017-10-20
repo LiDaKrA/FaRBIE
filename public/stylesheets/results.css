@@ -142,14 +142,21 @@
   position: relative;
 }
 
-.facets-item, .time-facet {
+.facets-group {
   margin: 2px 0;
   line-height: 28px;
+  position: relative;
+  background-color: #999999;
+}
+
+.facets-item, .time-facet {
+  margin: 4px 0;
+  line-height: 24px;
   position: relative;
   background-color: #D3D6D9;
 }
 
-.facets-item a.h3, .time-facet  a.h3 {
+.facets-item a.h3, .time-facet  a.h3, .facets-group a.h3 {
   color: #3e3a37;
 }
 
@@ -160,7 +167,7 @@
   overflow: hidden;
 }
 
-.facets-item>a.h3, .time-facet>a.h3 {
+.facets-item>a.h3, .time-facet>a.h3, .facets-group>a.h3 {
   z-index: 10;
   display: block;
   padding: 5px 20px 0 10px; /** AAA **/
@@ -177,7 +184,7 @@
   background-color: #f6f5f3;
 }
 
-.facets-list .facets-item.mouseout,.facets-list .time-facet.mouseout {
+.facets-list .facets-item.mouseout, .facets-list .time-facet.mouseout, .facets-group.mouseout {
   background-color: #D3D6D9;
 }
 
