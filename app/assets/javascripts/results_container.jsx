@@ -16,6 +16,7 @@ function extractQuery(key) {
 var queryDirty = extractQuery("query");
 var query = queryDirty.replace(new RegExp('\\+', 'g'), ' ');
 var exact_matching = false;
+var facetBar_entity = "1";
 
 if(query.match("^\"") && query.match("\"$")){
     exact_matching = true;
@@ -29,6 +30,12 @@ function compareRank(a, b) {
         return 1;
     return 0;
 }
+
+/*
+var buttonStyle = {
+    margin: '10px 10px 10px 0'
+};
+*/
 
 var sourcesDirty = extractQuery("sources");
 var typesDirty = extractQuery("types");
@@ -64,10 +71,10 @@ var ContainerResults = React.createClass({
                                         <img src={context + "/assets/images/Logo_ico-gray.png"} className="smallLogo" height="64" width="178" alt="Logo_Description" align="left" />
                                     </a>
                                 </div>
-                                <div className="col-md-10 text-right">
-                                    <SettingsBar onlangselect={this.setLang}/>
-                                </div>
-
+                            </div>
+                            <div>
+                                <SettingsBar onlangselect={this.setLang}/>
+                                <ViewsBar />
                             </div>
                         </nav>
                     </div>
@@ -104,7 +111,7 @@ var SourcesInfoBox = React.createClass({
                 <a href="#"><strong>0%    </strong></a>
                 <a className="sourcesInfoBox_success" href="#">0    <i className="fa fa-gear"></i></a>
                 <a className="sourcesInfoBox_fail" href="#">0    <i className="fa fa-gear"></i></a>
-                <a className="sourcesInfoBox_info" href="#">0    <i className="fa fa-info-circle"></i></a>
+                <a className="sourcesInfoBox_info" href="#"><i className="fa fa-info-circle"></i></a>
             </div>
             )
 
@@ -136,9 +143,7 @@ var SettingsBar = React.createClass({
         if (window.localStorage.getItem("lang") === "de") {
             return (
                 <div className="settingsBar">
-                    <a className="settingsBar_dropdown" href="#"><i className="fa fa-gears" ></i><div className="settingsBar_dropdown-content">
-                        <a href="#">File<i className="ffa fa-file-text"></i></a>
-                    </div></a>
+                    <a className="settingsBar_disabled" href="#"><i className="fa fa-gears" ></i></a>
                     <a className="settingsBar_sourcesOff" href="#">0    <i className="fa fa-refresh"></i></a>
                     <a href="#" onClick={boundClickEng}><strong>DE    </strong><i
                         className="fa fa-caret-down"></i></a>
@@ -147,9 +152,7 @@ var SettingsBar = React.createClass({
         } else {
             return (
                 <div className="settingsBar">
-                    <a className="settingsBar_dropdown" href="#"><i className="fa fa-gears" ></i><div className="settingsBar_dropdown-content">
-                        <a href="#">File<i className="ffa fa-file-text"></i></a>
-                    </div></a>
+                    <a className="settingsBar_disabled" href="#"><i className="fa fa-gears" ></i></a>
                     <a className="settingsBar_sourcesOff" href="#"><strong>0    </strong><i className="fa fa-refresh"></i></a>
                     <a href="#" onClick={boundClickGer}><strong>EN    </strong><i
                         className="fa fa-caret-down"></i></a>
@@ -158,6 +161,21 @@ var SettingsBar = React.createClass({
         }
     }
 
+})
+
+var ViewsBar = React.createClass({
+    render: function () {
+        return (
+            <div className="viewsBar">
+                <a className="viewsBar_active" href="#"><i className="fa fa-list-ul" ></i></a>
+                <a className="viewsBar_disabled" href="#"><i className="fa fa-table"></i></a>
+                <a className="viewsBar_disabled" href="#"><i className="fa fa-map-marker"></i></a>
+                <a className="viewsBar_disabled" href="#"><i className="fa fa-code-fork"></i></a>
+{/*                <a href="#" onClick={boundClickGer}><strong>EN    </strong><i
+                    className="fa fa-caret-down"></i></a>*/}
+            </div>
+        )
+    }
 })
 
 var SearchBox = React.createClass({
@@ -436,6 +454,31 @@ var ResultsContainer = React.createClass({
                             onAddLink={null}
                             onFavourite={null}>
                         </PersonResultElement>
+                        <PersonResultElement
+                            uri = "http://dbpedia.org/resource/Mauricio_Macri"
+                            id = "1234"
+                            img= "https://upload.wikimedia.org/wikipedia/commons/1/12/Mauricio_Macri_Foto_de_Prensa2.jpg"
+                            name= "Mauricio Macri"
+                            source= "twitter"
+                            alias={null}
+                            location={null}
+                            label={null}
+                            comment={null}
+                            gender="male"
+                            occupation="Actor"
+                            birthday="2009-08-07"
+                            country="Germany"
+                            webpage=""
+                            active_email={null}
+                            wants={null}
+                            haves={null}
+                            top_haves={null}
+                            interests={null}
+                            jsonResult = {null}
+                            uid = {null}
+                            onAddLink={null}
+                            onFavourite={null}>
+                        </PersonResultElement>
                     </ul>
                 </ul>
             </div>
@@ -451,13 +494,11 @@ var FacetedBar = React.createClass({
                     <div className="facets-head">
                         &nbsp;
                     </div>
-                    <div className="js facets-list bt bb">
-                        <FacetedType label="Person" name="Person"/>
-                        <FacetedType label="Organization" name="Organization"/>
-                    </div>
+                    <a className="js facets-list bt bb"><FacetedType label="Person" name="Person"/></a>
+                    <a className="js facets-list bt bb"><FacetedType label="Organization" name="Organization"/></a>
                 </div>
             </div>
-        );
+            )
     }
 });
 

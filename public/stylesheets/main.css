@@ -822,6 +822,34 @@ header .header-spacer,.header .header-spacer {
     background-color: #EEEEEE !important;
 }
 
+/* faceted bar section */
+
+/* Style the buttons that are used to open and close the accordion panel */
+.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+    overflow-y: auto;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.accordion.active, .accordion:hover {
+    background-color: #ccc;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+    padding: 0 18px;
+    background-color: white;
+    display: none;
+}
+
 /*- sources infobox section */
 
 .sourcesInfoBox {
@@ -842,21 +870,20 @@ header .header-spacer,.header .header-spacer {
     padding: 12px 0;
     transition: all 0.1s ease;
     color: #333;
+    font-size: 13px;
 }
 
 .sourcesInfoBox_success {
     color: forestgreen !important;
-    font-size: 12px;
 }
 
 .sourcesInfoBox_fail {
     color: red !important;
-    font-size: 12px;
 }
 
 .sourcesInfoBox_loader {
     color: #333 !important;
-    font-size: 18px;
+    font-size: 16px !important;
     float: none;
     position: static;
      /*animation: spin 2s linear infinite;*/
@@ -865,7 +892,7 @@ header .header-spacer,.header .header-spacer {
 .sourcesInfoBox_info {
     position: static !important;
     color: #085394 !important;
-    font-size: 12px;
+    font-size: 16px !important;
 }
 
 /*@keyframes spin {
@@ -895,9 +922,9 @@ header .header-spacer,.header .header-spacer {
 }
 
 .settingsBar a:hover, .settingsBar_dropbtn:focus{
-    background-color: #333;
+/*    background-color: #333;
     color: #2B78E4 !important;
-    /*color: white;*/
+    !*color: white;*!*/
 }
 
 .settingsBar_sourcesOff {
@@ -946,6 +973,10 @@ header .header-spacer,.header .header-spacer {
 
 .settingsBar_drop {display:block;}
 
+.settingsBar_disabled {
+    color: #999 !important;
+}
+
 /*
 .settings-bar-png li {margin-left:0;position:relative;margin-bottom:0.5em;}
 
@@ -973,9 +1004,9 @@ header .header-spacer,.header .header-spacer {
 
 .viewsBar {
     float: right;
-    position: relative;
+    position: static;
     display: inline-block;
-    width: 50%;
+    width: 20%;
     background-color: #fff;
     overflow: auto;
 }
@@ -987,16 +1018,20 @@ header .header-spacer,.header .header-spacer {
     padding: 12px 0;
     transition: all 0.1s ease;
     color: #333;
-    font-size: 36px;
+    font-size: 18px;
 }
 
 .viewsBar a:hover {
-    background-color: #333;
-    color: white;
+/*    background-color: #333;
+    color: white;*/
 }
 
 .viewsBar_active {
     color: #2B78E4 !important;
+}
+
+.viewsBar_disabled {
+    color: #999 !important;
 }
 
 

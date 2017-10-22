@@ -140,13 +140,16 @@
 .facets-list {
   margin-bottom: 10px;
   position: relative;
+  background-color: #FFF;
 }
 
 .facets-group {
   margin: 2px 0;
   line-height: 28px;
   position: relative;
-  background-color: #999999;
+  background-color: #666 !important;
+  color: #FFFFFF !important;
+  font-size: 13px !important;
 }
 
 .facets-item, .time-facet {
@@ -156,7 +159,12 @@
   background-color: #D3D6D9;
 }
 
-.facets-item a.h3, .time-facet  a.h3, .facets-group a.h3 {
+ .facets-group a.h3 {
+   margin: 4px;
+   color: #FFF;
+ }
+
+.facets-item a.h3, .time-facet  a.h3 {
   color: #3e3a37;
 }
 
@@ -167,7 +175,31 @@
   overflow: hidden;
 }
 
-.facets-item>a.h3, .time-facet>a.h3, .facets-group>a.h3 {
+.facets-group>a.h3 {
+  z-index: 10;
+  color: #FFF;
+  display: block;
+  padding: 5px 20px 0 10px; /** AAA **/
+  background-position: 100% -48px;
+  /** AAA **/
+  height: 28px;
+  margin:4px;
+  font-size: 16px;
+}
+
+.facets-group>a.h3 {
+  z-index: 10;
+  display: block;
+  padding: 5px 20px 0 10px; /** AAA **/
+  background: url("../images/icons/arrowsWhite.png") no-repeat;
+  background-position: 100% -48px;
+  /** AAA **/
+  height: 28px;
+  margin: 4px;
+  font-size: 16px;
+}
+
+.facets-item>a.h3, .time-facet>a.h3{
   z-index: 10;
   display: block;
   padding: 5px 20px 0 10px; /** AAA **/
@@ -175,8 +207,7 @@
   background-position: 100% -48px;
   /** AAA **/
   height: 28px;
-  margin-top: 0px;
-  margin-bottom: 0px;
+  margin: 4px;
   font-size: 16px;
 }
 
