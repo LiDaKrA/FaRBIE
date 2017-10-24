@@ -481,10 +481,6 @@ class WrapperController @Inject()(ws: WSClient) extends Controller {
   */
 object WrapperController {
   val wrappers = Seq(
-    //Social Networks Graphs
-    new GooglePlusWrapper(),
-    new TwitterWrapper(),
-    new FacebookWrapper(),
     //Google RDF knowledge graph
     new GoogleKnowledgeGraphWrapper(),
     //Linked leaks RDF Graph

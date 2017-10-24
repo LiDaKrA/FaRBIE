@@ -62,4 +62,7 @@ trait RestApiWrapperTrait {
   def sourceUri = FuhsenVocab.sourceNS + sourceLocalName
 
   def requestType = "SCALA"
+
+  def buildSparqlQuery(queryString: String): String
+
 }

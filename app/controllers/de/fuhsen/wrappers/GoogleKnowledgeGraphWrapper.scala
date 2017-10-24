@@ -31,6 +31,8 @@ class GoogleKnowledgeGraphWrapper extends RestApiWrapperTrait with SilkTransform
       //("types" -> "Organization") //This does not work only returns organization results
   )
 
+  override def buildSparqlQuery(queryString: String): String = ???
+
   /** Headers that should be added to the request. */
   override def headersParams: Map[String, String] = Map()
 

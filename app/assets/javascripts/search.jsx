@@ -720,30 +720,4 @@ var ContextualHelp = React.createClass({
     }
 });
 
-var WebSocketConnector =  React.createClass({
-    getInitialState(){
-        return { messages : [] }
-    },
-    componentDidMount(){
-        // this is an "echo" websocket service
-        this.connection = new WebSocket('ws://localhost:9000/farbie/ws/search');
-        // listen to onmessage event
-        this.connection.onmessage = evt => {
-            // add the new message to state
-            this.setState({
-                messages : this.state.messages.concat([ evt.data ])
-            })
-        };
-
-        // for testing purposes: sending to the echo service which will send it back back
-        setTimeout( _ =>{
-            this.connection.send("Message "+Math.random())
-        }, 2000 )
-    },
-    render: function() {
-        // slice(-5) gives us the five most recent messages
-        return <ul>{ this.state.messages.slice(-5).map( (msg, idx) => <li key={'msg-' + idx }>{ msg }</li> )}</ul>;
-    }
-});
-
 React.render(<SearchContainer />, document.getElementById('containersearch'));

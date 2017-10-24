@@ -16,7 +16,6 @@ function extractQuery(key) {
 var queryDirty = extractQuery("query");
 var query = queryDirty.replace(new RegExp('\\+', 'g'), ' ');
 var exact_matching = false;
-var facetBar_entity = "1";
 
 if(query.match("^\"") && query.match("\"$")){
     exact_matching = true;
@@ -30,12 +29,6 @@ function compareRank(a, b) {
         return 1;
     return 0;
 }
-
-/*
-var buttonStyle = {
-    margin: '10px 10px 10px 0'
-};
-*/
 
 var sourcesDirty = extractQuery("sources");
 var typesDirty = extractQuery("types");
@@ -71,10 +64,10 @@ var ContainerResults = React.createClass({
                                         <img src={context + "/assets/images/Logo_ico-gray.png"} className="smallLogo" height="64" width="178" alt="Logo_Description" align="left" />
                                     </a>
                                 </div>
-                            </div>
-                            <div>
-                                <SettingsBar onlangselect={this.setLang}/>
-                                <ViewsBar />
+                                <div className="col-md-10 text-right">
+                                    <SettingsBar onlangselect={this.setLang}/>
+									<ViewsBar/>
+                                </div>
                             </div>
                         </nav>
                     </div>
@@ -82,8 +75,7 @@ var ContainerResults = React.createClass({
 
                 <div className="row search-results-container">
                     {/*
-                        <WebSocketConnector />
-                        <Trigger url={context + "/engine/api/searches?query=" + query} pollInterval={200000}/>
+                       <WebSocketConnector />
                     */}
                     <div className="col-md-3">
                         <div className="row">
@@ -116,7 +108,7 @@ var SourcesInfoBox = React.createClass({
             )
 
     }
-})
+});
 
 var SettingsBar = React.createClass({
     preSetLang: function (lang, e) {
@@ -161,7 +153,7 @@ var SettingsBar = React.createClass({
         }
     }
 
-})
+});
 
 var ViewsBar = React.createClass({
     render: function () {
@@ -176,7 +168,7 @@ var ViewsBar = React.createClass({
             </div>
         )
     }
-})
+});
 
 var SearchBox = React.createClass({
     getSelectionLabel: function(){
@@ -434,21 +426,12 @@ var ResultsContainer = React.createClass({
                             id = "1234"
                             img= "https://upload.wikimedia.org/wikipedia/commons/1/12/Mauricio_Macri_Foto_de_Prensa2.jpg"
                             name= "Mauricio Macri"
-                            source= "twitter"
-                            alias={null}
-                            location={null}
-                            label={null}
-                            comment={null}
+                            source= "dbpedia"
+                            comment="Mauricio Macri (Born 8 February 1959), is the current President of Argentina and has been in office since 2015. A former civil engineer..."
                             gender="male"
-                            occupation="Actor"
                             birthday="2009-08-07"
-                            country="Germany"
-                            webpage=""
-                            active_email={null}
-                            wants={null}
-                            haves={null}
-                            top_haves={null}
-                            interests={null}
+                            country="Argentina"
+                            webpage="https://en.wikipedia.org/wiki/Mauricio_Macri"
                             jsonResult = {null}
                             uid = {null}
                             onAddLink={null}
@@ -457,28 +440,33 @@ var ResultsContainer = React.createClass({
                         <PersonResultElement
                             uri = "http://dbpedia.org/resource/Mauricio_Macri"
                             id = "1234"
-                            img= "https://upload.wikimedia.org/wikipedia/commons/1/12/Mauricio_Macri_Foto_de_Prensa2.jpg"
                             name= "Mauricio Macri"
-                            source= "twitter"
-                            alias={null}
-                            location={null}
-                            label={null}
-                            comment={null}
+                            source= "LinkedLeaks"
+                            comment="The Panama Papers data is current through 2015"
+                            occupation="Director of FLEG TRADING LTD"
                             gender="male"
-                            occupation="Actor"
-                            birthday="2009-08-07"
-                            country="Germany"
-                            webpage=""
-                            active_email={null}
-                            wants={null}
-                            haves={null}
-                            top_haves={null}
-                            interests={null}
+                            country="Argentina"
+                            webpage="http://data.ontotext.com/resource/leaks/officer-15002701"
                             jsonResult = {null}
                             uid = {null}
                             onAddLink={null}
                             onFavourite={null}>
                         </PersonResultElement>
+                        <OrganizationResultElement
+                            uri = ""
+                            id = "4567"
+                            title="FLEG TRADING LTD"
+                            source= "LinkedLeaks"
+                            label="FLEG TRADING LTD"
+                            comment="Directed by Mauricio Macri"
+                            country="Uruguay"
+                            location="CR. SANTIAGO LUSSICH TORRENDELL MISIONES Nº 1.371 PISO 4º ( C.P. 11.100 ) MONTEVIDEO, URUGUAY"
+                            webpage=""
+                            jsonResult = {null}
+                            uid = {null}
+                            onAddLink={null}
+                            onFavourite={null}>
+                        </OrganizationResultElement>
                     </ul>
                 </ul>
             </div>
@@ -494,11 +482,13 @@ var FacetedBar = React.createClass({
                     <div className="facets-head">
                         &nbsp;
                     </div>
-                    <a className="js facets-list bt bb"><FacetedType label="Person" name="Person"/></a>
-                    <a className="js facets-list bt bb"><FacetedType label="Organization" name="Organization"/></a>
+                    <div className="js facets-list bt bb">
+                        <FacetedType label="Person" name="Person"/>
+                        <FacetedTypeOrg label="Organization" name="Organization"/>
+                    </div>
                 </div>
             </div>
-            )
+        )
     }
 });
 
@@ -508,8 +498,24 @@ var FacetedType = React.createClass({
             <div className="facets-group bt bb bl br">
                 <a className="h3">{this.props.label}</a>
                 <div id={"" + this.props.name + ""}>
-                    <FacetedItem label="Title" name="Title"/>
-                    <FacetedItem label="Full Name" name="FullName"/>
+                    <FacetedItem label="Gender" name="Gender"/>
+                    <FacetedItem label="Occupation" name="Occupation"/>
+                    <FacetedItem label="Birthday" name="Birthday"/>
+                </div>
+            </div>
+        );
+    }
+});
+
+var FacetedTypeOrg = React.createClass({
+    render: function () {
+        return (
+            <div className="facets-group bt bb bl br">
+                <a className="h3">{this.props.label}</a>
+                <div id={"" + this.props.name + ""}>
+                    <FacetedItem label="Name" name="Name"/>
+                    <FacetedItem label="Location" name="Location"/>
+                    <FacetedItem label="Country" name="Country"/>
                 </div>
             </div>
         );
@@ -592,6 +598,77 @@ var PersonResultElement = React.createClass({
                 </div>
             </li>
         );
+    }
+});
+
+var OrganizationResultElement = React.createClass({
+    render: function () {
+        var detailsPageUri = context + "/details?entityType=organization" + "&eUri=" + this.props.uri + "&uid=" + this.props.uid;
+        return (
+            <li className="item bt">
+                <div className="summary row">
+                    <div className="thumbnail-wrapper col-md-2">
+                        <div className="thumbnail">
+                            { this.props.img !== undefined ? <img src={this.props.img} height="60px" width="75px"/>:
+                                <img src={context + "/assets/images/datasources/Unknown_Thing.jpg"} height="60px" width="75px"/> }
+                        </div>
+                    </div>
+                    <div className="summary-main-wrapper col-md-8">
+                        <div className="summary-main">
+                            <a href={detailsPageUri} target="_blank">
+                                <h2 className="title">
+                                    {this.props.title}
+                                </h2>
+                            </a>
+                            <div className="subtitle">
+                                { this.props.label !== undefined ? <p>{this.props.label}</p> : null }
+                                { this.props.comment !== undefined ? <p>{this.props.comment}</p> : null }
+                                { this.props.country !== undefined ?
+                                    <p>{getTranslation("country")}: {this.props.country}</p> : null }
+                                { this.props.location !== undefined ?
+                                    <p>{getTranslation("location")}: {this.props.location}</p> : null }
+                                { this.props.webpage !== undefined ?
+                                    <p><b>{getTranslation("link")}: </b><a href={this.props.webpage}
+                                                                           target="_blank">{this.props.webpage}</a></p> : null }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="thumbnail-wrapper col-md-1">
+                        <div class="thumbnail">
+                            <img src={context + "/assets/images/datasources/" + this.props.source + ".png"}
+                                 alt={"Information from " + this.props.source} height="45" width="45"
+                                 title={this.props.source}/>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        );
+    }
+});
+
+var WebSocketConnector =  React.createClass({
+    getInitialState(){
+        return { messages : [] }
+    },
+    componentDidMount(){
+        // this is an "echo" websocket service
+        this.connection = new WebSocket('ws://localhost:9000/farbie/ws/search');
+        // listen to onmessage event
+        this.connection.onmessage = evt => {
+            // add the new message to state
+            this.setState({
+                messages : this.state.messages.concat([ evt.data ])
+            })
+        };
+
+        // for testing purposes: sending to the echo service which will send it back back
+        setTimeout( _ =>{
+            this.connection.send("Message "+Math.random())
+        }, 2000 )
+    },
+    render: function() {
+        // slice(-5) gives us the five most recent messages
+        return <ul>{ this.state.messages.slice(-5).map( (msg, idx) => <li key={'msg-' + idx }>{ msg }</li> )}</ul>;
     }
 });
 

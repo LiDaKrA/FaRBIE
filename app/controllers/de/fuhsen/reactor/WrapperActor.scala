@@ -1,24 +1,38 @@
 package controllers.de.fuhsen.reactor
 
-import play.api.libs.ws.WSClient
+import java.net.URLEncoder
+
+import akka.http.scaladsl.Http
+import akka.http.scaladsl.model._
+import akka.stream.{ActorMaterializer, ActorMaterializerSettings}
 
 import scala.collection.immutable.HashSet
 import akka.actor._
+import akka.util.ByteString
 import play.libs.Akka
 import controllers.de.fuhsen.wrappers._
 import org.apache.jena.rdf.model.ModelFactory
 import org.apache.jena.riot.Lang
 import utils.dataintegration.RDFUtil
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
 
 /**
   * Created by dcollarana on 6/29/2017.
   **/
 class WrapperActor(wrapper: RestApiWrapperTrait, out: ActorRef) extends Actor {
 
+  val http = Http(context.system)
+  final implicit val materializer: ActorMaterializer = ActorMaterializer(ActorMaterializerSettings(context.system))
+
   def receive = {
     case msg: StartSearch =>
       //To-do search
-      out ! ResultsFound(wrapper.sourceLocalName, staticMessage)
+      //out ! ResultsFound(wrapper.sourceLocalName, staticMessage)
+      http.singleRequest(HttpRequest( uri = wrapper.apiUrl+"?query="+URLEncoder.encode(wrapper.buildSparqlQuery(msg.query), "UTF-8"))).map( response =>
+        response.entity.dataBytes.runFold(ByteString(""))(_ ++ _).foreach { body =>
+          out ! ResultsFound(wrapper.sourceLocalName, wrapper.sourceLocalName+" "+body.utf8String)
+        }
+      )
   }
 
   val staticMessage =
@@ -38,8 +52,7 @@ class LogicKeeperActor(out: ActorRef) extends Actor {
 
   protected[this] var watchers: HashSet[ActorRef] = HashSet(
     Akka.system.actorOf(Props(new WrapperActor(new DBpediaWrapper(), self))),
-    Akka.system.actorOf(Props(new WrapperActor(new LinkedLeaksWrapper(), self))),
-    Akka.system.actorOf(Props(new WrapperActor(new GoogleKnowledgeGraphWrapper(), self)))
+    Akka.system.actorOf(Props(new WrapperActor(new LinkedLeaksWrapper(), self)))
   )
 
   def receive = {
@@ -49,9 +62,8 @@ class LogicKeeperActor(out: ActorRef) extends Actor {
     case msg: StartSearch =>
       watchers.foreach(_ ! msg)
     case msg: ResultsFound =>
-      model.add(RDFUtil.rdfStringToModel(msg.rdf, Lang.TURTLE))
-      //out ! RDFUtil.modelToTripleString(model, Lang.JSONLD)
-      out ! model.size.toString
+      //model.add(RDFUtil.rdfStringToModel(msg.rdf, Lang.TURTLE))
+      out ! msg.rdf
   }
 }
 
