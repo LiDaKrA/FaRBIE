@@ -10,6 +10,8 @@ libraryDependencies ++= Seq(
   //javaJdbc,
   cache,
   javaWs,
+  "com.typesafe.akka" %% "akka-http" % "10.0.10",
+  "com.typesafe.akka" %% "akka-slf4j" % "2.4.1",
   "org.apache.jena" % "apache-jena-libs" % "3.0.1",
   "junit" % "junit" % "4.12" % "test",
   "org.mockito" % "mockito-all" % "1.9.5" % "test",
