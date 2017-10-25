@@ -543,6 +543,7 @@ var FacetList = React.createClass({
 });
 
 var FacetItems = React.createClass({
+    //States - NOT PROPERTIES
     getInitialState: function () {
         arr_ele = [];//fill elements of the sub menu in an array
         return {showTextBox: false, selected_facets: []};

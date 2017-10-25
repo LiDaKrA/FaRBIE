@@ -2,6 +2,9 @@ checkLanguage();
 
 var context = $('body').data('context')
 
+//Variable for EventEmitter (Component communication)
+var ee = new EventEmitter();
+
 function extractQuery(key) {
     var query = window.location.search.substring(1);
     var vars = query.split("&");
