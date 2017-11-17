@@ -2,8 +2,13 @@ checkLanguage();
 
 var context = $('body').data('context')
 
+// var SelectBox = React.createFactory(require('../lib/select-box'));
+
+//Player function for EventEmitter (Component communication)
+//function Player(){}
+//heir.inherit(Player, EventEmitter);
 //Variable for EventEmitter (Component communication)
-var ee = new EventEmitter();
+// var ee = new EventEmitter();
 
 function extractQuery(key) {
     var query = window.location.search.substring(1);
@@ -485,57 +490,117 @@ var FacetedBar = React.createClass({
                     <div className="facets-head">
                         &nbsp;
                     </div>
-                    <div className="js facets-list bt bb">
-                        <FacetedType label="Person" name="Person"/>
-                        <FacetedTypeOrg label="Organization" name="Organization"/>
+                    <div className="js facets-list bt bb bl br">
+                        <FacetedNav label="Person" name="Person"/>
+                        <FacetedNavOrg label="Organization" name="Organization"/>
                     </div>
                 </div>
             </div>
-        )
+        );
     }
-});
+}).bind(this);
 
-var FacetedType = React.createClass({
+var FacetedNav = React.createClass({
+     render: function () {
+         return (
+             <div className="facets-group bt bb bl br" id={"" + this.props.name + ""}>
+                 <a className="h3">{this.props.label}</a>
+                     <FacetedItem label="Gender" name="Gender"/>
+                     <FacetedItem label="Occupation" name="Occupation"/>
+                     <FacetedItem label="Birthday" name="Birthday"/>
+             </div>
+         );
+     }
+ }).bind(this);
+
+var FacetedNavOrg = React.createClass({
     render: function () {
         return (
-            <div className="facets-group bt bb bl br">
+            <div className="facets-group bt bb bl br" id={"" + this.props.name + ""}>
                 <a className="h3">{this.props.label}</a>
-                <div id={"" + this.props.name + ""}>
-                    <FacetedItem label="Gender" name="Gender"/>
-                    <FacetedItem label="Occupation" name="Occupation"/>
-                    <FacetedItem label="Birthday" name="Birthday"/>
-                </div>
+                    <FacetedItemOrg label="Name" name="Name"/>
+                    <FacetedItemOrg label="Location" name="Location"/>
+                    <FacetedItemOrg label="Country" name="Country"/>
             </div>
         );
     }
-});
+}).bind(this);
 
-var FacetedTypeOrg = React.createClass({
+var FacetedItemOrg = React.createClass({
+/*    onClick: function() {
+        if (this.matches('.facetedItem')) {
+            alert()
+            var dropdowns = document.getElementsByClassName("facetedItemDropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdowns = dropdowns[i];
+                if (openDropdowns.classList.contains('facetedItem-show')) {
+                    openDropdowns.classList.remove('facetedItem-show');
+                }
+            }
+        }
+    },
+    componentDidMount: function(){
+        this.onClick();
+    },*/
     render: function () {
         return (
-            <div className="facets-group bt bb bl br">
-                <a className="h3">{this.props.label}</a>
-                <div id={"" + this.props.name + ""}>
-                    <FacetedItem label="Name" name="Name"/>
-                    <FacetedItem label="Location" name="Location"/>
-                    <FacetedItem label="Country" name="Country"/>
-                </div>
+            <div id={"" + this.props.name + ""} className="js facets-item bt bb bl br">
+                <a className="h3" href="#">{this.props.label}</a>
+                    <FacetedItemDropdown label="Orga1" name="Orga1"/>
+                    <FacetedItemDropdown label="Orga2" name="Orga2"/>
+                    <FacetedItemDropdown label="Orga3" name="Orga3"/>
             </div>
         );
     }
-});
+}).bind(this);
 
 var FacetedItem = React.createClass({
+    /*    onClick: function() {
+            if (this.matches('.facetedItem')) {
+                alert()
+                var dropdowns = document.getElementsByClassName("facetedItemDropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdowns = dropdowns[i];
+                    if (openDropdowns.classList.contains('facetedItem-show')) {
+                        openDropdowns.classList.remove('facetedItem-show');
+                    }
+                }
+            }
+        },
+        componentDidMount: function(){
+            this.onClick();
+        },*/
     render: function () {
         return (
-            <div className="facets-item bt bb bl br">
-                <a className="h3">{this.props.label}</a>
-                <div id={"" + this.props.name + ""}>
-                </div>
+            <div id={"" + this.props.name + ""} >
+                <form className="nav-tabs js facets-item bt bb bl br">
+                    <a className="h3" href="#">{this.props.label}</a>
+                    <fieldset>
+                        <FacetedItemDropdown label="Male" name="Male"/>
+                        <FacetedItemDropdown label="Female" name="Female"/>
+                        <FacetedItemDropdown label="Other" name="Other"/>
+                        <div>
+                            <input type="text" label="search" name="facetsearch"/>
+                        </div>
+                    </fieldset>
+                </form>
             </div>
         );
     }
-});
+}).bind(this);
+
+var FacetedItemDropdown = React.createClass({
+    render: function () {
+        return (
+                <a id={"" + this.props.name + ""} className="col-md-6 nav-pills facets-list facetedItemDropdown-content facetedItem-content" href="#">
+                    <input className="col-md-1" type="checkbox">{this.props.label}</input>
+                </a>
+        );
+    }
+}).bind(this);
+
 
 var PersonResultElement = React.createClass({
     render: function () {
@@ -674,5 +739,9 @@ var WebSocketConnector =  React.createClass({
         return <ul>{ this.state.messages.slice(-5).map( (msg, idx) => <li key={'msg-' + idx }>{ msg }</li> )}</ul>;
     }
 });
+
+
+
+
 
 React.render(<ContainerResults url={context + "/keyword"} pollInterval={200000}/>, document.getElementById('skeleton'));

@@ -138,7 +138,6 @@
 }
 
 .facets-list {
-  margin-bottom: 10px;
   position: relative;
   background-color: #FFF;
 }
@@ -202,6 +201,7 @@
 .facets-item>a.h3, .time-facet>a.h3{
   z-index: 10;
   display: block;
+  overflow: hidden;
   padding: 5px 20px 0 10px; /** AAA **/
   background: url("../images/icons/arrows.png") no-repeat;
   background-position: 100% -48px;
