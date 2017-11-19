@@ -824,16 +824,42 @@ header .header-spacer,.header .header-spacer {
 
 /* faceted bar section */
 
+.facetedItem-layout {
+    max-height: 0.3em;
+    border: none;
+    display: block; !important;
+    position: relative;
+    overflow: visible;
+    float: left;
+    box-sizing: content-box;
+    z-index: 11; !important;
+}
+
+.facetedItemSearch {
+    position: relative;
+    padding: 0px 0px 0px 50px; !important;
+    font-size: 8px; !important;
+    box-sizing: border-box; !important;
+    max-width: 60%;
+    left: 101% ;
+    background-color: white;
+    font-style: italic;
+    z-index: 11; !important;
+}
 
 /* faceted item section */
 
 .facetedItemDropdown-content {
+    height: auto;
+    width: auto;
     display: inline-block;
+    position: relative;
     background-color: #f9f9f9;
-    min-width: 160px;
+    min-width: 75%;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 10;
-    margin-left: 100%;
+    margin-left: 101%;
+    margin-inside: 0px;
     overflow: visible;
 }
 
@@ -851,41 +877,16 @@ header .header-spacer,.header .header-spacer {
     overflow: hidden;
     font-size: 16px;
     opacity: 1.0;
-}
-
-/* Style the buttons that are used to open and close the accordion panel */
-.accordion {
-    background-color: #eee;
-    color: #444;
-    cursor: pointer;
-    padding: 18px;
     width: 100%;
-    text-align: left;
-    border: none;
-    outline: none;
-    transition: 0.4s;
-    overflow-y: auto;
+    box-sizing: content-box;
 }
-
-/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-.accordion.active, .accordion:hover {
-    background-color: #ccc;
-}
-
-/* Style the accordion panel. Note: hidden by default */
-.panel {
-    padding: 0 18px;
-    background-color: white;
-    display: none;
-}
-
 /*- sources infobox section */
 
 .sourcesInfoBox {
     float: left;
     position: static;
     display: inline-block;
-    width: 13em;
+    width: 23em;
     height: 3em;
     background-color: #CCC;
     overflow: hidden;
@@ -944,7 +945,7 @@ header .header-spacer,.header .header-spacer {
     float: left;
     width: 20%;
     text-align: center;
-    padding: 12px 0;
+    padding: 15px 0;
     transition: all 0.1s ease;
     color: #333;
     font-size: 18px;

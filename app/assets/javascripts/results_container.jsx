@@ -527,29 +527,38 @@ var FacetedNavOrg = React.createClass({
 }).bind(this);
 
 var FacetedItemOrg = React.createClass({
-/*    onClick: function() {
-        if (this.matches('.facetedItem')) {
-            alert()
-            var dropdowns = document.getElementsByClassName("facetedItemDropdown-content");
-            var i;
-            for (i = 0; i < dropdowns.length; i++) {
-                var openDropdowns = dropdowns[i];
-                if (openDropdowns.classList.contains('facetedItem-show')) {
-                    openDropdowns.classList.remove('facetedItem-show');
+    /*    onClick: function() {
+            if (this.matches('.facetedItem')) {
+                alert()
+                var dropdowns = document.getElementsByClassName("facetedItemDropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdowns = dropdowns[i];
+                    if (openDropdowns.classList.contains('facetedItem-show')) {
+                        openDropdowns.classList.remove('facetedItem-show');
+                    }
                 }
             }
-        }
-    },
-    componentDidMount: function(){
-        this.onClick();
-    },*/
+        },
+        componentDidMount: function(){
+            this.onClick();
+        },*/
     render: function () {
         return (
-            <div id={"" + this.props.name + ""} className="js facets-item bt bb bl br">
-                <a className="h3" href="#">{this.props.label}</a>
-                    <FacetedItemDropdown label="Orga1" name="Orga1"/>
-                    <FacetedItemDropdown label="Orga2" name="Orga2"/>
-                    <FacetedItemDropdown label="Orga3" name="Orga3"/>
+            <div id={"" + this.props.name + ""} >
+                <div className="nav-tabs js facets-item bt bb bl br">
+                    <a className="h3" href="#">{this.props.label}</a>
+                    <fieldset>
+                        <form className="facetedItem-layout">
+                            <fieldset>
+                                <FacetedItemDropdown label="Orga1" name="Orga1"/>
+                                <FacetedItemDropdown label="Orga2" name="Orga2"/>
+                                <FacetedItemDropdown label="Orga3" name="Orga3"/>
+                                <FacetedItemSearch label={"Search " + this.props.label + "s"}/>
+                            </fieldset>
+                        </form>
+                    </fieldset>
+                </div>
             </div>
         );
     }
@@ -575,17 +584,19 @@ var FacetedItem = React.createClass({
     render: function () {
         return (
             <div id={"" + this.props.name + ""} >
-                <form className="nav-tabs js facets-item bt bb bl br">
+                <div className="nav-tabs js facets-item bt bb bl br">
                     <a className="h3" href="#">{this.props.label}</a>
                     <fieldset>
-                        <FacetedItemDropdown label="Male" name="Male"/>
-                        <FacetedItemDropdown label="Female" name="Female"/>
-                        <FacetedItemDropdown label="Other" name="Other"/>
-                        <div>
-                            <input type="text" label="search" name="facetsearch"/>
-                        </div>
+                        <form className="facetedItem-layout">
+                            <fieldset>
+                                <FacetedItemDropdown label="Male" name="Male"/>
+                                <FacetedItemDropdown label="Female" name="Female"/>
+                                <FacetedItemDropdown label="Other" name="Other"/>
+                                <FacetedItemSearch label={"Search " + this.props.label + "s"}/>
+                            </fieldset>
+                        </form>
                     </fieldset>
-                </form>
+                </div>
             </div>
         );
     }
@@ -598,6 +609,14 @@ var FacetedItemDropdown = React.createClass({
                     <input className="col-md-1" type="checkbox">{this.props.label}</input>
                 </a>
         );
+    }
+}).bind(this);
+
+var FacetedItemSearch = React.createClass({
+    render: function () {
+        return (
+            <input className="facets-list facetedItemSearch" type="text" placeholder={this.props.label}/>
+        )
     }
 }).bind(this);
 
