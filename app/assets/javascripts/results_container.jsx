@@ -41,6 +41,7 @@ function compareRank(a, b) {
 var sourcesDirty = extractQuery("sources");
 var typesDirty = extractQuery("types");
 
+//THIS IS THE PRESENTATION COMPONENT FOR QUERY RESULTS PRESENTATION - MAYBE REFACTOR NAME
 var ContainerResults = React.createClass({
     // event handler for language switch
     // change dictionary then update state so the page notices the change
@@ -71,6 +72,12 @@ var ContainerResults = React.createClass({
                                     <a href={context === "" ? "/" : context}>
                                         <img src={context + "/assets/images/Logo_ico-gray.png"} className="smallLogo" height="64" width="178" alt="Logo_Description" align="left" />
                                     </a>
+                                </div>
+                                <div id="headerSearch" className="col-md-5 search-results-container input-search-fct-container text-left">
+                                    <input type="text" name="containerQuery" id="containerInputGroup"/>
+                                    <button className="input-group-addon">
+                                        <i className="fa fa-search"></i>
+                                    </button >
                                 </div>
                                 <div className="col-md-10 text-right">
                                     <SettingsBar onlangselect={this.setLang}/>
@@ -103,6 +110,7 @@ var ContainerResults = React.createClass({
     }
 });
 
+//
 var SourcesInfoBox = React.createClass({
     render: function () {
         return(
@@ -118,6 +126,7 @@ var SourcesInfoBox = React.createClass({
     }
 });
 
+//
 var SettingsBar = React.createClass({
     preSetLang: function (lang, e) {
         window.localStorage.lang = lang
@@ -145,8 +154,7 @@ var SettingsBar = React.createClass({
                 <div className="settingsBar">
                     <a className="settingsBar_disabled" href="#"><i className="fa fa-gears" ></i></a>
                     <a className="settingsBar_sourcesOff" href="#">0    <i className="fa fa-refresh"></i></a>
-                    <a href="#" onClick={boundClickEng}><strong>DE    </strong><i
-                        className="fa fa-caret-down"></i></a>
+                    <a href="#" onClick={boundClickEng}><strong>DE    </strong><i className="fa fa-caret-down"></i></a>
                 </div>
             )
         } else {
@@ -154,8 +162,7 @@ var SettingsBar = React.createClass({
                 <div className="settingsBar">
                     <a className="settingsBar_disabled" href="#"><i className="fa fa-gears" ></i></a>
                     <a className="settingsBar_sourcesOff" href="#"><strong>0    </strong><i className="fa fa-refresh"></i></a>
-                    <a href="#" onClick={boundClickGer}><strong>EN    </strong><i
-                        className="fa fa-caret-down"></i></a>
+                    <a href="#" onClick={boundClickGer}><strong>EN    </strong><i className="fa fa-caret-down"></i></a>
                 </div>
             )
         }
@@ -163,6 +170,7 @@ var SettingsBar = React.createClass({
 
 });
 
+//
 var ViewsBar = React.createClass({
     render: function () {
         return (
@@ -178,6 +186,7 @@ var ViewsBar = React.createClass({
     }
 });
 
+//
 var SearchBox = React.createClass({
     getSelectionLabel: function(){
         var sources_list = this.getLabelsFromSelectedChecks(this.state.sources)
@@ -423,6 +432,7 @@ var SearchBox = React.createClass({
     }
 });
 
+//THIS IS THE CONTAINER COMPONENT FOR QUERY RESULTS DELIVERY
 var ResultsContainer = React.createClass({
     render: function () {
         return (
@@ -482,17 +492,38 @@ var ResultsContainer = React.createClass({
     }
 });
 
+//THIS IS THE FACETED BAR SIDE/TOP MENU
 var FacetedBar = React.createClass({
+    getInitialState: function () {
+        //Declare and initialize boilerplate buffers for incoming results from LogicKeeper
+        var entityTypes = {};
+        var attributeTypes = [];
+        return {
+            //Sets the default Entity option to "person"
+            defaultEntity: "person",
+            isVisible: false
+        };
+    },
+    select: function (item) {
+        this.props.selected = item;
+    },
+    show: function () {
+        this.setState({ isVisible: true });
+        document.addEventListener("click", this.hide);
+    },
+    hide: function () {
+        this.setState({  isVisible: false });
+        document.removeEventListener("click", this.hide);
+    },
     render: function () {
         return (
             <div>
-                <div className="facets-container hidden-phone">
-                    <div className="facets-head">
+                <div className={"facets-container hidden-phone" + (this.state.isVisible ? " show" : "")}>
+                    <div className={"facets-head" + (this.state.isVisible = true) }>
                         &nbsp;
                     </div>
-                    <div className="js facets-list bt bb bl br">
+                    <div className={"js facets-list bt bb bl br" + (this.state.isVisible ? " clicked" : "")} onClick={this.hide}>
                         <FacetedNav label="Person" name="Person"/>
-                        <FacetedNavOrg label="Organization" name="Organization"/>
                     </div>
                 </div>
             </div>
@@ -500,32 +531,140 @@ var FacetedBar = React.createClass({
     }
 }).bind(this);
 
+//
 var FacetedNav = React.createClass({
+    getInitialState: function () {
+        return {
+            isVisible: false
+        };
+    },
+    select: function (item) {
+        this.props.selected = item;
+    },
      render: function () {
          return (
              <div className="facets-group bt bb bl br" id={"" + this.props.name + ""}>
-                 <a className="h3">{this.props.label}</a>
+                 <a className="h3" onClick={this.onClick}>{this.props.label}</a>
+{/*                    <div>
+                        {this.renderListItems()}
+                    </div>*/}
+                 {
+                     this.state.isVisible
+                         ? <FacetedItem label="Gender" name="Gender"/>
+                         : null
+                 }
                      <FacetedItem label="Gender" name="Gender"/>
                      <FacetedItem label="Occupation" name="Occupation"/>
                      <FacetedItem label="Birthday" name="Birthday"/>
              </div>
          );
-     }
+     },
+    renderListItems: function() {
+        var items = [];
+        for (var i = 0; i < this.props.list.length; i++) {
+            var item = this.props.list[i];
+            items.push(<div onClick={this.select.bind(null, item)}>
+                <span style={{ color: item.hex }}>{item.name}</span>
+                <i className="fa fa-check"></i>
+            </div>);
+        }
+        return items;
+    },
+
+    onClick: function () {
+        this.setState({ isVisible : !this.state.isVisible });
+    }
  }).bind(this);
 
-var FacetedNavOrg = React.createClass({
+var FacetedItem = React.createClass({
+    /*    onClick: function() {
+            if (this.matches('.facetedItem')) {
+                alert()
+                var dropdowns = document.getElementsByClassName("facetedItemDropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdowns = dropdowns[i];
+                    if (openDropdowns.classList.contains('facetedItem-show')) {
+                        openDropdowns.classList.remove('facetedItem-show');
+                    }
+                }
+            }
+        },
+        componentDidMount: function(){
+            this.onClick();
+        },*/
+    /* getInitialState() {
+    return { /* INITIAL STATE GOES HERE, EQUIVALENT TO CONSTRUCTOR*/
+    getInitialState() {
+        return { /* INITIAL STATE GOES HERE, EQUIVALENT TO CONSTRUCTOR */ };
+    },
     render: function () {
         return (
-            <div className="facets-group bt bb bl br" id={"" + this.props.name + ""}>
-                <a className="h3">{this.props.label}</a>
-                    <FacetedItemOrg label="Name" name="Name"/>
-                    <FacetedItemOrg label="Location" name="Location"/>
-                    <FacetedItemOrg label="Country" name="Country"/>
+            <div id={"" + this.props.name + ""} onClick={this.onClick}>
+                <div className="nav-tabs js facets-item bt bb bl br">
+                    <a className="h3" href="#">{this.props.label}</a>
+                    {
+                        this.state.isVisible
+                            ? <AttributeDropdown name="Person" label="Person"/>
+                            : null
+                    }
+                    {/*<fieldset>*/}
+                        {/*<form className="facetedItem-layout">*/}
+                            {/*<div>*/}
+                                {/*<FacetedItemDropdown label="Male" name="Male"/>*/}
+                                {/*<FacetedItemDropdown label="Female" name="Female"/>*/}
+                                {/*<FacetedItemDropdown label="Other" name="Other"/>*/}
+                                {/*<FacetedItemSearch label={"Search " + this.props.label + ""}/>*/}
+                            {/*</div>*/}
+                        {/*</form>*/}
+                    {/*</fieldset>*/}
+                </div>
+            </div>
+        );
+    },
+
+    onClick: function () {
+        this.setState({ isVisible : !this.state.isVisible });
+    }
+}).bind(this);
+
+//
+var AttributeDropdown = React.createClass({
+    render: function () {
+        return (
+            <div className="nav-pills facets-list">
+                <a id={"" + this.props.name + ""} className="facetedItemDropdown-content facetedItem-content" href="#">
+                    <ul className="list-unstyled bt bb bl br">
+                        {/*<input className="col-md-1" type="checkbox">{this.props.label}</input>*/}
+                        <li>
+                            <input  type="checkbox">Male</input>
+                        </li>
+                        <li>
+                            <input  type="checkbox">Female</input>
+                        </li>
+                        <li>
+                            <input  type="checkbox">Other</input>
+                        </li>
+                    </ul>
+                    <AttributeSearch label={"Search " + this.props.label + ""}/>
+                </a>
             </div>
         );
     }
 }).bind(this);
 
+//
+var AttributeSearch = React.createClass({
+    render: function () {
+        return (
+            <div>
+                <input className="facets-list facetedItemSearch" type="text" placeholder={this.props.label}/>
+            </div>
+        )
+    }
+}).bind(this);
+
+//
 var FacetedItemOrg = React.createClass({
     /*    onClick: function() {
             if (this.matches('.facetedItem')) {
@@ -564,63 +703,22 @@ var FacetedItemOrg = React.createClass({
     }
 }).bind(this);
 
-var FacetedItem = React.createClass({
-    /*    onClick: function() {
-            if (this.matches('.facetedItem')) {
-                alert()
-                var dropdowns = document.getElementsByClassName("facetedItemDropdown-content");
-                var i;
-                for (i = 0; i < dropdowns.length; i++) {
-                    var openDropdowns = dropdowns[i];
-                    if (openDropdowns.classList.contains('facetedItem-show')) {
-                        openDropdowns.classList.remove('facetedItem-show');
-                    }
-                }
-            }
-        },
-        componentDidMount: function(){
-            this.onClick();
-        },*/
+//
+//
+var FacetedNavOrg = React.createClass({
     render: function () {
         return (
-            <div id={"" + this.props.name + ""} >
-                <div className="nav-tabs js facets-item bt bb bl br">
-                    <a className="h3" href="#">{this.props.label}</a>
-                    <fieldset>
-                        <form className="facetedItem-layout">
-                            <fieldset>
-                                <FacetedItemDropdown label="Male" name="Male"/>
-                                <FacetedItemDropdown label="Female" name="Female"/>
-                                <FacetedItemDropdown label="Other" name="Other"/>
-                                <FacetedItemSearch label={"Search " + this.props.label + "s"}/>
-                            </fieldset>
-                        </form>
-                    </fieldset>
-                </div>
+            <div className="facets-group bt bb bl br" id={"" + this.props.name + ""}>
+                <a className="h3">{this.props.label}</a>
+                <FacetedItemOrg label="Name" name="Name"/>
+                <FacetedItemOrg label="Location" name="Location"/>
+                <FacetedItemOrg label="Country" name="Country"/>
             </div>
         );
     }
 }).bind(this);
 
-var FacetedItemDropdown = React.createClass({
-    render: function () {
-        return (
-                <a id={"" + this.props.name + ""} className="col-md-6 nav-pills facets-list facetedItemDropdown-content facetedItem-content" href="#">
-                    <input className="col-md-1" type="checkbox">{this.props.label}</input>
-                </a>
-        );
-    }
-}).bind(this);
-
-var FacetedItemSearch = React.createClass({
-    render: function () {
-        return (
-            <input className="facets-list facetedItemSearch" type="text" placeholder={this.props.label}/>
-        )
-    }
-}).bind(this);
-
-
+//
 var PersonResultElement = React.createClass({
     render: function () {
         var detailsPageUri = context + "/details?entityType=person" + "&eUri=" + this.props.uri + "&uid=" + this.props.uid;
@@ -688,6 +786,7 @@ var PersonResultElement = React.createClass({
     }
 });
 
+//
 var OrganizationResultElement = React.createClass({
     render: function () {
         var detailsPageUri = context + "/details?entityType=organization" + "&eUri=" + this.props.uri + "&uid=" + this.props.uid;
@@ -733,6 +832,7 @@ var OrganizationResultElement = React.createClass({
     }
 });
 
+//
 var WebSocketConnector =  React.createClass({
     getInitialState(){
         return { messages : [] }

@@ -833,6 +833,9 @@ header .header-spacer,.header .header-spacer {
     float: left;
     box-sizing: content-box;
     z-index: 11; !important;
+    .transform(scale(1, 0));
+    .transition(-webkit-transform ease 250ms);
+    .transition(transform ease 250ms);
 }
 
 .facetedItemSearch {
@@ -840,8 +843,9 @@ header .header-spacer,.header .header-spacer {
     padding: 0px 0px 0px 50px; !important;
     font-size: 8px; !important;
     box-sizing: border-box; !important;
-    max-width: 60%;
-    left: 101% ;
+    max-width: 80%;
+    min-width: 100px;
+    left: 0px ;
     background-color: white;
     font-style: italic;
     z-index: 11; !important;
@@ -853,8 +857,9 @@ header .header-spacer,.header .header-spacer {
     height: auto;
     width: auto;
     display: inline-block;
-    position: relative;
+    position: absolute;
     background-color: #f9f9f9;
+    padding: 0;
     min-width: 75%;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 10;
@@ -865,7 +870,6 @@ header .header-spacer,.header .header-spacer {
 
 .facetedItem-content a {
     color: #444;
-    text-decoration: none; !important;
     display: inline-block;
     position: relative;
     left: 5px;
@@ -880,6 +884,11 @@ header .header-spacer,.header .header-spacer {
     width: 100%;
     box-sizing: content-box;
 }
+
+.facetedItem-content a:hover a:visited a:link a:active, .facetedItemDropdown-content a:hover a:visited a:link a:active {
+    text-decoration: none; !important;
+}
+
 /*- sources infobox section */
 
 .sourcesInfoBox {
