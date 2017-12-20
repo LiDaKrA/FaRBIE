@@ -504,7 +504,7 @@ var FacetedBar = React.createClass({
             isVisible: false
         };
     },
-    select: function (item) {
+/*    select: function (item) {
         this.props.selected = item;
     },
     show: function () {
@@ -514,7 +514,7 @@ var FacetedBar = React.createClass({
     hide: function () {
         this.setState({  isVisible: false });
         document.removeEventListener("click", this.hide);
-    },
+    },*/
     render: function () {
         return (
             <div>
@@ -524,6 +524,7 @@ var FacetedBar = React.createClass({
                     </div>
                     <div className={"js facets-list bt bb bl br" + (this.state.isVisible ? " clicked" : "")} onClick={this.hide}>
                         <FacetedNav label="Person" name="Person"/>
+                        <FacetedNavOrg label="Organization" name="Organization"/>
                     </div>
                 </div>
             </div>
@@ -535,7 +536,7 @@ var FacetedBar = React.createClass({
 var FacetedNav = React.createClass({
     getInitialState: function () {
         return {
-            isVisible: false
+            isVisible: true
         };
     },
     select: function (item) {
@@ -550,15 +551,14 @@ var FacetedNav = React.createClass({
                     </div>*/}
                  {
                      this.state.isVisible
-                         ? <FacetedItem label="Gender" name="Gender"/>
+                         // PROPS CAN BE PASSED ONTO LOWER LEVEL COMPONENTS HERE
+                         ? <FacetedContainer />
                          : null
                  }
-                     <FacetedItem label="Gender" name="Gender"/>
-                     <FacetedItem label="Occupation" name="Occupation"/>
-                     <FacetedItem label="Birthday" name="Birthday"/>
              </div>
          );
      },
+    //placeholder for automatic list generation method - IGNORE FOR THE MOMENT
     renderListItems: function() {
         var items = [];
         for (var i = 0; i < this.props.list.length; i++) {
@@ -575,6 +575,19 @@ var FacetedNav = React.createClass({
         this.setState({ isVisible : !this.state.isVisible });
     }
  }).bind(this);
+
+//CONTAINER (LOGIC) COMPONENT FOR FacetedNav AUTOMATIC ENTITY GENERATION
+var FacetedContainer = React.createClass({
+    render: function () {
+        return (
+            <div>
+                <FacetedItem label="Gender" name="Gender"/>
+                <FacetedItem label="Occupation" name="Occupation"/>
+                <FacetedItem label="Birthday" name="Birthday"/>
+            </div>
+        );
+    }
+}).bind(this);
 
 var FacetedItem = React.createClass({
     /*    onClick: function() {
@@ -595,8 +608,10 @@ var FacetedItem = React.createClass({
         },*/
     /* getInitialState() {
     return { /* INITIAL STATE GOES HERE, EQUIVALENT TO CONSTRUCTOR*/
-    getInitialState() {
-        return { /* INITIAL STATE GOES HERE, EQUIVALENT TO CONSTRUCTOR */ };
+    getInitialState: function () {
+        return {
+            isVisible: false
+        };
     },
     render: function () {
         return (
@@ -605,7 +620,7 @@ var FacetedItem = React.createClass({
                     <a className="h3" href="#">{this.props.label}</a>
                     {
                         this.state.isVisible
-                            ? <AttributeDropdown name="Person" label={this.props.label}/>
+                            ? <AttributeDropdown name={"attribute " + this.props.name + ""} label={this.props.label}/>
                             : null
                     }
                     {/*<fieldset>*/}
@@ -630,12 +645,19 @@ var FacetedItem = React.createClass({
 
 //
 var AttributeDropdown = React.createClass({
+    getInitialState: function () {
+        return {
+            isVisible: true
+        };
+    },
     render: function () {
         return (
             <div className="nav-pills facets-list">
                 <a id={"" + this.props.name + ""} className="facetedItemDropdown-content facetedItem-content" href="#">
                     <ul className="list-unstyled bt bb bl br">
                         {/*<input className="col-md-1" type="checkbox">{this.props.label}</input>*/}
+
+                        {/*// This section should be optimized for automatic list item generation based on incoming props from ResultsItem!!! //*/}
                         <li>
                             <input  type="checkbox">Male</input>
                         </li>
@@ -655,11 +677,45 @@ var AttributeDropdown = React.createClass({
 
 //This component is responsible for the attribute widget search box and action button
 var AttributeActivity = React.createClass({
+    getInitialState() {
+        return {
+            isVisible: false
+        };
+    },
     render: function () {
         return (
             <div className="attributeActivity">
+                {/* Attribute search*/}
                 <input type="text" placeholder={this.props.label}/>
-                <i className="fa fa-share-square-o"></i>
+                {/* Attribute action button*/}
+                <div id="attributeActionButton" onClick={this.onClick}>
+                    <i className="fa fa-ellipsis-h"></i>
+                    {/* WHY IS THIS NOT WORKING?? ---> */}
+                    {
+                        this.state.isVisible
+                            ? <AttributeAction />
+                            : null
+                    }
+                </div>
+            </div>
+        );
+    },
+
+    onClick: function () {
+        this.setState({ isVisible : !this.state.isVisible });
+    }
+}).bind(this);
+
+//This component is responsible for the action button dropdown
+var AttributeAction = React.createClass({
+    render: function () {
+        return (
+            <div className="attributeAction">
+                <ul className="list-unstyled bt bb bl br">
+                    <li><a>Test item 1</a></li>
+                    <li><a>Test item 2</a></li>
+                    <li><a>Test item 3</a></li>
+                </ul>
             </div>
         )
     }
@@ -691,10 +747,7 @@ var FacetedItemOrg = React.createClass({
                     <fieldset>
                         <form className="facetedItem-layout">
                             <fieldset>
-                                <FacetedItemDropdown label="Orga1" name="Orga1"/>
-                                <FacetedItemDropdown label="Orga2" name="Orga2"/>
-                                <FacetedItemDropdown label="Orga3" name="Orga3"/>
-                                <FacetedItemSearch label={"Search " + this.props.label + "s"}/>
+                                <AttributeDropdown label="test1" name="test1"/>
                             </fieldset>
                         </form>
                     </fieldset>
@@ -707,15 +760,24 @@ var FacetedItemOrg = React.createClass({
 //
 //
 var FacetedNavOrg = React.createClass({
+    getInitialState: function () {
+        return {
+            isVisible: false
+        };
+    },
+    select: function (item) {
+        this.props.selected = item;
+    },
     render: function () {
         return (
-            <div className="facets-group bt bb bl br" id={"" + this.props.name + ""}>
+            <div className="facets-group bt bb bl br" id={"" + this.props.name + ""} onClick={this.onClick}>
                 <a className="h3">{this.props.label}</a>
                 <FacetedItemOrg label="Name" name="Name"/>
-                <FacetedItemOrg label="Location" name="Location"/>
-                <FacetedItemOrg label="Country" name="Country"/>
             </div>
         );
+    },
+    onClick: function () {
+        this.setState({ isVisible : !this.state.isVisible });
     }
 }).bind(this);
 
