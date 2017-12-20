@@ -500,7 +500,7 @@ var FacetedBar = React.createClass({
         var attributeTypes = [];
         return {
             //Sets the default Entity option to "person"
-            defaultEntity: "person",
+            defaultEntity: "Person",
             isVisible: false
         };
     },
@@ -605,7 +605,7 @@ var FacetedItem = React.createClass({
                     <a className="h3" href="#">{this.props.label}</a>
                     {
                         this.state.isVisible
-                            ? <AttributeDropdown name="Person" label="Person"/>
+                            ? <AttributeDropdown name="Person" label={this.props.label}/>
                             : null
                     }
                     {/*<fieldset>*/}
@@ -646,19 +646,20 @@ var AttributeDropdown = React.createClass({
                             <input  type="checkbox">Other</input>
                         </li>
                     </ul>
-                    <AttributeSearch label={"Search " + this.props.label + ""}/>
+                    <AttributeActivity label={"Search " + this.props.label + ""}/>
                 </a>
             </div>
         );
     }
 }).bind(this);
 
-//
-var AttributeSearch = React.createClass({
+//This component is responsible for the attribute widget search box and action button
+var AttributeActivity = React.createClass({
     render: function () {
         return (
-            <div>
-                <input className="facets-list facetedItemSearch" type="text" placeholder={this.props.label}/>
+            <div className="attributeActivity">
+                <input type="text" placeholder={this.props.label}/>
+                <i className="fa fa-share-square-o"></i>
             </div>
         )
     }

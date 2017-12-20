@@ -838,19 +838,6 @@ header .header-spacer,.header .header-spacer {
     .transition(transform ease 250ms);
 }
 
-.facetedItemSearch {
-    position: relative;
-    padding: 0px 0px 0px 50px; !important;
-    font-size: 8px; !important;
-    box-sizing: border-box; !important;
-    max-width: 80%;
-    min-width: 100px;
-    left: 0px ;
-    background-color: white;
-    font-style: italic;
-    z-index: 11; !important;
-}
-
 /* faceted item section */
 
 .facetedItemDropdown-content {
@@ -873,16 +860,20 @@ header .header-spacer,.header .header-spacer {
     display: inline-block;
     position: relative;
     left: 5px;
-    top: 5px;
     padding: 5px 20px 0 10px; /** AAA **/
     background-position: 100% -48px;
     /** AAA **/
-    height: 28px;
+    height: auto;
     overflow: hidden;
     font-size: 16px;
     opacity: 1.0;
     width: 100%;
     box-sizing: content-box;
+}
+
+.facetedItem-content ul,li {
+    margin-left: 10px;
+    text-decoration: none; !important;
 }
 
 .facetedItem-content a:hover a:visited a:link a:active, .facetedItemDropdown-content a:hover a:visited a:link a:active {
@@ -939,7 +930,7 @@ header .header-spacer,.header .header-spacer {
     100% { transform: rotate(360deg); }
 }*/
 
-/*- settings bar section */
+/*- SETTINGS BAR SECTION */
 
 .settingsBar {
     float: right;
@@ -1039,7 +1030,7 @@ header .header-spacer,.header .header-spacer {
 
 
 
-/*- views bar section */
+/*- VIEWS BAR SECTION */
 
 .viewsBar {
     float: right;
@@ -1071,6 +1062,48 @@ header .header-spacer,.header .header-spacer {
 
 .viewsBar_disabled {
     color: #999 !important;
+}
+
+/*- ATTRIBUTEACTIVITY SECTION */
+
+.attributeActivity {
+    float: left;
+    position: static;
+    display: inline;
+    margin-top: 0px; !important;
+    width: 100%;
+    height: 105%;
+    background-color: #fff;
+    overflow: auto;
+}
+
+.attributeActivity i {
+    float: right;
+    width: 25%;
+    text-align: center;
+    transition: all 0.1s ease;
+    color: #333;
+    font-size: 18px;
+    top: 0px;
+}
+
+.attributeActivity input {
+    float: left;
+    padding: 0;
+    transition: all 0.1s ease;
+    color: #333;
+    font-size: 14px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    margin-left: 10px; !important;
+    position: relative;
+    box-sizing: border-box; !important;
+    max-width: 75%;
+    min-width: 70%;
+    left: 0px ;
+    background-color: white;
+    font-style: italic;
+    z-index: 11; !important;
 }
 
 /* header - start */
