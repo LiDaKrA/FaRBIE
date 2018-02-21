@@ -596,6 +596,10 @@ input[type="checkbox"],input[type="radio"] {
   word-wrap: break-word;
 }
 
+html {
+  overflow-y: scroll;
+}
+
 .search-results .results-list .thumbnail {
   margin-bottom: 15px;
 }

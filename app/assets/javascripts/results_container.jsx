@@ -66,20 +66,25 @@ var ContainerResults = React.createClass({
             <div>
                 <div className="container">
                     <div className="row" id="header-main-row">
-                        <nav className="widget col-md-12" data-widget="NavigationWidget">
-                            <div className="row">
-                                <div className="col-md-2">
+                        <nav className="navbar navbar-default navBarExtra" data-widget="NavigationWidget">
+                            <div className="container-fluid">
+                                <div className="col-md-2 navbar-header">
                                     <a href={context === "" ? "/" : context}>
-                                        <img src={context + "/assets/images/Logo_ico-gray.png"} className="smallLogo" height="64" width="178" alt="Logo_Description" align="left" />
+                                        <img data-toggle="tooltip" title="FaRBIE Home" src={context + "/assets/images/Logo_ico-gray.png"} height="64" width="178" alt="Logo_Description" align="left" />
                                     </a>
                                 </div>
-                                <div id="headerSearch" className="col-md-5 search-results-container input-search-fct-container text-left">
-                                    <input type="text" name="containerQuery" id="containerInputGroup"/>
-                                    <button className="input-group-addon">
-                                        <i className="fa fa-search"></i>
-                                    </button >
-                                </div>
-                                <div className="col-md-10 text-right">
+                                <form className="navbar-form navbar-left">
+                                    {/* refresh search*/}
+                                    <div className="input-group navSearchBoxHeader">
+                                        <input className="form-control navSearchBoxHeader" type="text" placeholder="Search"/>
+                                        <div className="input-group-addon" id="containerInputGroup">
+                                            <a type="submit">
+                                                <i className="fa fa-search inputGroupIconHeader"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div className="col-md-5 navbar-right">
                                     <SettingsBar onlangselect={this.setLang}/>
 									<ViewsBar/>
                                 </div>
@@ -99,6 +104,9 @@ var ContainerResults = React.createClass({
                         <div className="row">
                             <FacetedBar />
                         </div>
+                        <div id="search-facets">
+                            {/*This element's contents will be replaced with your component*/}
+                        </div>
                     </div>
                     <div>
                         <ResultsContainer />
@@ -112,17 +120,20 @@ var ContainerResults = React.createClass({
 
 //
 var SourcesInfoBox = React.createClass({
+    onCLick: function () {
+        alert(<Text> Query and sources information -{"\n"} Source: DBPEDIA - Status: 200 (Query Succesful){"\n"} Source: GOOGLE KNOWLEDGE GRAPH - Status: 200 (Query Succesful){"\n"} Source: LINKEDLEAKS - Status: 200 (Query Succesful){"\n"} Source: FACEBOOK - Status: 404 (FAILED - NO TOKEN FOUND){"\n"} Source: XING - Status: 404 (FAILED - NO TOKEN FOUND)</Text>)
+    },
     render: function () {
         return(
             <div className="sourcesInfoBox">
-                <a className="sourcesInfoBox_loader" href="#"><i className="fa fa-spinner fa-spin"></i></a>
-                <a href="#"><strong>0%    </strong></a>
-                <a className="sourcesInfoBox_success" href="#">0    <i className="fa fa-gear"></i></a>
-                <a className="sourcesInfoBox_fail" href="#">0    <i className="fa fa-gear"></i></a>
-                <a className="sourcesInfoBox_info" href="#"><i className="fa fa-info-circle"></i></a>
+                {/*<a className="sourcesInfoBox_loader" href="#"><i className="fa fa-spinner fa-spin"></i></a>*/}
+                <a className="sourcesInfoBox_success" data-toggle="tooltip" title="Search completed" href="#"><i className="fa fa-check"></i></a>
+                <a href="#"><strong>100%    </strong></a>
+                <a className="sourcesInfoBox_success" data-toggle="tooltip" title="Successful sources" href="#">2    <i className="fa fa-gear"></i></a>
+                <a className="sourcesInfoBox_fail" data-toggle="tooltip" title="Failed sources" href="#">0    <i className="fa fa-gear"></i></a>
+                <a className="sourcesInfoBox_info" data-toggle="tooltip" title="Query and sources information" href="#"><i className="fa fa-info-circle"></i></a>
             </div>
             )
-
     }
 });
 
@@ -132,7 +143,10 @@ var SettingsBar = React.createClass({
         window.localStorage.lang = lang
         this.props.onlangselect()
     },
-    settingsBar_dropdown: function () {
+    onClick: function () {
+        alert("The selected feature is not available.")
+    },
+/*    settingsBar_dropdown: function () {
         if (!event.target.matches('.settingsBar_dropbtn')) {
 
             var dropdowns = document.getElementsByClassName("settingsBar_dropdown-content");
@@ -144,25 +158,26 @@ var SettingsBar = React.createClass({
                 }
             }
         }
-    },
+    },*/
     render: function () {
         let boundClickEng = this.preSetLang.bind(this, 'en');
         let boundClickGer = this.preSetLang.bind(this, 'de');
         /*let boundClickDropdown = this.settingsBar_dropdown(this, 'settingsBar_dropbtn');*/
         if (window.localStorage.getItem("lang") === "de") {
             return (
-                <div className="settingsBar">
-                    <a className="settingsBar_disabled" href="#"><i className="fa fa-gears" ></i></a>
-                    <a className="settingsBar_sourcesOff" href="#">0    <i className="fa fa-refresh"></i></a>
-                    <a href="#" onClick={boundClickEng}><strong>DE    </strong><i className="fa fa-caret-down"></i></a>
+                <div className="nav settingsBar input-group">
+
+                    <a className="btn btn-default settingsBar_disabled" data-toggle="tooltip" title="Settings" href="#" onClick={this.onClick}><i className="fa fa-gears" ></i></a>
+                    <a className="btn btn-default settingsBar_sourcesOff" href="#" data-toggle="tooltip" title="Source Tokens" onClick={this.onClick}>0    <i className="fa fa-refresh"></i></a>
+                    <a className="btn btn-default" href="#" data-toggle="tooltip" title="Select language" onClick={boundClickEng}><strong>DE    </strong><i className="fa fa-caret-down"></i></a>
                 </div>
             )
         } else {
             return (
-                <div className="settingsBar">
-                    <a className="settingsBar_disabled" href="#"><i className="fa fa-gears" ></i></a>
-                    <a className="settingsBar_sourcesOff" href="#"><strong>0    </strong><i className="fa fa-refresh"></i></a>
-                    <a href="#" onClick={boundClickGer}><strong>EN    </strong><i className="fa fa-caret-down"></i></a>
+                <div className="nav settingsBar input-group">
+                    <a className="btn btn-default settingsBar_disabled" href="#" data-toggle="tooltip" title="Settings" onClick={this.onClick}><i className="fa fa-gears" ></i></a>
+                    <a className="btn btn-default settingsBar_sourcesOff" href="#" data-toggle="tooltip" title="Source Tokens" onClick={this.onClick}><strong>0    </strong><i className="fa fa-refresh"></i></a>
+                    <a className="btn btn-default" href="#" data-toggle="tooltip" title="Select language" onClick={boundClickGer}><strong>EN    </strong><i className="fa fa-caret-down"></i></a>
                 </div>
             )
         }
@@ -172,13 +187,17 @@ var SettingsBar = React.createClass({
 
 //
 var ViewsBar = React.createClass({
+    section: {},
+    onClick: function() {
+        alert("The selected view is not available.")
+    },
     render: function () {
         return (
-            <div className="viewsBar">
-                <a className="viewsBar_active" href="#"><i className="fa fa-list-ul" ></i></a>
-                <a className="viewsBar_disabled" href="#"><i className="fa fa-table"></i></a>
-                <a className="viewsBar_disabled" href="#"><i className="fa fa-map-marker"></i></a>
-                <a className="viewsBar_disabled" href="#"><i className="fa fa-code-fork"></i></a>
+            <div className="nav viewsBar input-group">
+                <a className="btn btn-default viewsBar_active" data-toggle="tooltip" title="List view"><i className="fa fa-list-ul"></i></a>
+                <a className="btn btn-default viewsBar_disabled" data-toggle="tooltip" title="Table view" onClick={this.onClick}><i className="fa fa-table"></i></a>
+                <a className="btn btn-default viewsBar_disabled" data-toggle="tooltip" title="Map view" onClick={this.onClick}><i className="fa fa-map-marker"></i></a>
+                <a className="btn btn-default viewsBar_disabled" data-toggle="tooltip" title="Graph view" onClick={this.onClick}><i className="fa fa-code-fork"></i></a>
 {/*                <a href="#" onClick={boundClickGer}><strong>EN    </strong><i
                     className="fa fa-caret-down"></i></a>*/}
             </div>
@@ -434,9 +453,12 @@ var SearchBox = React.createClass({
 
 //THIS IS THE CONTAINER COMPONENT FOR QUERY RESULTS DELIVERY
 var ResultsContainer = React.createClass({
+    componentWillUpdate() {
+        setTimeout()
+    },
     render: function () {
         return (
-            <div className="col-md-9">
+            <div className="col-md-9 scroll">
                 <ul id="search-results" className="search-results">
                     <ul className="results-list list-unstyled">
                         <PersonResultElement
@@ -470,7 +492,67 @@ var ResultsContainer = React.createClass({
                             onAddLink={null}
                             onFavourite={null}>
                         </PersonResultElement>
-                        <OrganizationResultElement
+                        <PersonResultElement
+                            uri = "http://dbpedia.org/resource/Juliana_Awada"
+                            id = "1234"
+                            name= "Juliana Awada"
+                            source= "DBpedia"
+                            comment={null}
+                            occupation="Businesswoman"
+                            gender="female"
+                            country="Argentina"
+                            webpage="https://en.wikipedia.org/wiki/Juliana_Awada"
+                            jsonResult = {null}
+                            uid = {null}
+                            onAddLink={null}
+                            onFavourite={null}>
+                        </PersonResultElement>
+                        <PersonResultElement
+                            uri = "http://dbpedia.org/resource/Federico_Pinedo"
+                            id = "1234"
+                            name= "Federico Pinedo"
+                            source= "DBpedia"
+                            comment={null}
+                            occupation="Argentine Politician"
+                            gender="male"
+                            country="Argentina"
+                            webpage="https://en.wikipedia.org/wiki/Federico_Pinedo"
+                            jsonResult = {null}
+                            uid = {null}
+                            onAddLink={null}
+                            onFavourite={null}>
+                        </PersonResultElement>
+                        <PersonResultElement
+                            uri = "http://dbpedia.org/resource/Jorge_Lemus"
+                            id = "1234"
+                            name= "Jorge Lemus"
+                            source= "DBpedia"
+                            comment={null}
+                            occupation="Politician"
+                            gender="male"
+                            country="Argentina"
+                            webpage="https://en.wikipedia.org/wiki/Jorge_Lemus"
+                            jsonResult = {null}
+                            uid = {null}
+                            onAddLink={null}
+                            onFavourite={null}>
+                        </PersonResultElement>
+                        <PersonResultElement
+                            uri = "http://dbpedia.org/resource/Carolina Stanley"
+                            id = "1234"
+                            name= "Carolina Stanley"
+                            source= "DBpedia"
+                            comment={null}
+                            occupation="Politician"
+                            gender="male"
+                            country="Argentina"
+                            webpage="https://en.wikipedia.org/wiki/Carolina_Stanley"
+                            jsonResult = {null}
+                            uid = {null}
+                            onAddLink={null}
+                            onFavourite={null}>
+                        </PersonResultElement>
+{/*                        <OrganizationResultElement
                             uri = ""
                             id = "4567"
                             title="FLEG TRADING LTD"
@@ -484,7 +566,7 @@ var ResultsContainer = React.createClass({
                             uid = {null}
                             onAddLink={null}
                             onFavourite={null}>
-                        </OrganizationResultElement>
+                        </OrganizationResultElement>*/}
                     </ul>
                 </ul>
             </div>
@@ -501,50 +583,53 @@ var FacetedBar = React.createClass({
         return {
             //Sets the default Entity option to "person"
             defaultEntity: "Person",
-            isVisible: false
+            //Handles visibility of dropdowns when clicked
+            personClicked: false,
+            orgaClicked: false,
         };
     },
-/*    select: function (item) {
-        this.props.selected = item;
-    },
-    show: function () {
+    onClick: function() {
         this.setState({ isVisible: true });
-        document.addEventListener("click", this.hide);
     },
-    hide: function () {
-        this.setState({  isVisible: false });
-        document.removeEventListener("click", this.hide);
-    },*/
+    // select: function (item) {
+    //     this.props.selected = item;
+    // },
+    // show: function () {
+    //     this.setState({ isVisible: true });
+    //     document.addEventListener("click", this.hide);
+    // },
+    // hide: function () {
+    //     this.setState({  isVisible: false });
+    //     document.removeEventListener("click", this.hide);
+    // },
     render: function () {
+
         return (
             <div>
                 <div className={"facets-container hidden-phone" + (this.state.isVisible ? " show" : "")}>
                     <div className={"facets-head" + (this.state.isVisible = true) }>
                         &nbsp;
                     </div>
-                    <div className={"js facets-list bt bb bl br" + (this.state.isVisible ? " clicked" : "")} onClick={this.hide}>
+                    <div className={"js facets-list bt bb bl br" + (this.state.isVisible ? " clicked" : "")}>
                         <FacetedNav label="Person" name="Person"/>
-                        <FacetedNavOrg label="Organization" name="Organization"/>
+                        {/*<FacetedNavOrg label="Organization" name="Organization"/>*/}
                     </div>
                 </div>
             </div>
         );
     }
-}).bind(this);
+});
 
 //
 var FacetedNav = React.createClass({
     getInitialState: function () {
         return {
-            isVisible: true
+            isVisible: false
         };
-    },
-    select: function (item) {
-        this.props.selected = item;
     },
      render: function () {
          return (
-             <div className="facets-group bt bb bl br" id={"" + this.props.name + ""}>
+             <div className="facets-group " id={"" + this.props.name + ""}>
                  <a className="h3" onClick={this.onClick}>{this.props.label}</a>
 {/*                    <div>
                         {this.renderListItems()}
@@ -558,6 +643,7 @@ var FacetedNav = React.createClass({
              </div>
          );
      },
+
     //placeholder for automatic list generation method - IGNORE FOR THE MOMENT
     renderListItems: function() {
         var items = [];
@@ -571,23 +657,27 @@ var FacetedNav = React.createClass({
         return items;
     },
 
+
     onClick: function () {
         this.setState({ isVisible : !this.state.isVisible });
     }
- }).bind(this);
+ });
 
 //CONTAINER (LOGIC) COMPONENT FOR FacetedNav AUTOMATIC ENTITY GENERATION
 var FacetedContainer = React.createClass({
     render: function () {
         return (
-            <div>
+            <div className="list-group facetedContainerAlignment">
                 <FacetedItem label="Gender" name="Gender"/>
+                <AttributeDropdown id={"attribute " + this.props.name + ""} label={this.props.label}/>
                 <FacetedItem label="Occupation" name="Occupation"/>
                 <FacetedItem label="Birthday" name="Birthday"/>
+
+
             </div>
         );
     }
-}).bind(this);
+});
 
 var FacetedItem = React.createClass({
     /*    onClick: function() {
@@ -616,23 +706,8 @@ var FacetedItem = React.createClass({
     render: function () {
         return (
             <div id={"" + this.props.name + ""} onClick={this.onClick}>
-                <div className="nav-tabs js facets-item bt bb bl br">
+                <div className="nav-tabs nav-stacked js facets-item">
                     <a className="h3" href="#">{this.props.label}</a>
-                    {
-                        this.state.isVisible
-                            ? <AttributeDropdown name={"attribute " + this.props.name + ""} label={this.props.label}/>
-                            : null
-                    }
-                    {/*<fieldset>*/}
-                        {/*<form className="facetedItem-layout">*/}
-                            {/*<div>*/}
-                                {/*<FacetedItemDropdown label="Male" name="Male"/>*/}
-                                {/*<FacetedItemDropdown label="Female" name="Female"/>*/}
-                                {/*<FacetedItemDropdown label="Other" name="Other"/>*/}
-                                {/*<FacetedItemSearch label={"Search " + this.props.label + ""}/>*/}
-                            {/*</div>*/}
-                        {/*</form>*/}
-                    {/*</fieldset>*/}
                 </div>
             </div>
         );
@@ -641,7 +716,7 @@ var FacetedItem = React.createClass({
     onClick: function () {
         this.setState({ isVisible : !this.state.isVisible });
     }
-}).bind(this);
+});
 
 //
 var AttributeDropdown = React.createClass({
@@ -652,28 +727,26 @@ var AttributeDropdown = React.createClass({
     },
     render: function () {
         return (
-            <div className="nav-pills facets-list">
-                <a id={"" + this.props.name + ""} className="facetedItemDropdown-content facetedItem-content" href="#">
-                    <ul className="list-unstyled bt bb bl br">
-                        {/*<input className="col-md-1" type="checkbox">{this.props.label}</input>*/}
-
+            <div >
+                <div id={"" + this.props.name + ""} className="col-md-8 col-md-push-12 attributeDropdown-content" href="#">
+                    <ul >
                         {/*// This section should be optimized for automatic list item generation based on incoming props from ResultsItem!!! //*/}
                         <li>
-                            <input  type="checkbox">Male</input>
-                        </li>
+                            <a className="btn btn-primary btn-sm" type="button">Male   <span className="badge badgeRound">4</span></a>
+                        </li >
                         <li>
-                            <input  type="checkbox">Female</input>
+                            <a className="btn btn-primary btn-sm" type="button">Female   <span className="badge badgeRound">2</span></a>
                         </li>
-                        <li>
-                            <input  type="checkbox">Other</input>
-                        </li>
+                        {/*<li>*/}
+                            {/*<a className="btn btn-primary btn-sm" type="button">Other</a>*/}
+                        {/*</li>*/}
                     </ul>
-                    <AttributeActivity label={"Search " + this.props.label + ""}/>
-                </a>
+                    <AttributeActivity label={this.props.label}/>
+                </div>
             </div>
         );
     }
-}).bind(this);
+});
 
 //This component is responsible for the attribute widget search box and action button
 var AttributeActivity = React.createClass({
@@ -682,44 +755,22 @@ var AttributeActivity = React.createClass({
             isVisible: false
         };
     },
+    onClick: function () {
+        this.setState({ isVisible : !this.state.isVisible });
+    },
     render: function () {
         return (
-            <div className="attributeActivity">
+            <div className="row input-group attributeActivity">
                 {/* Attribute search*/}
-                <input type="text" placeholder={this.props.label}/>
-                {/* Attribute action button*/}
-                <div id="attributeActionButton" onClick={this.onClick}>
-                    <i className="fa fa-ellipsis-h"></i>
-                    {/* WHY IS THIS NOT WORKING?? ---> */}
-                    {
-                        this.state.isVisible
-                            ? <AttributeAction />
-                            : null
-                    }
+                <input className="col-sm-7 attributeActivity " type="text" placeholder={"Search " + this.props.label + ""}/>
+                <div className="input-group-btn">
+                    <a className="btn btn-default" data-toggle="tooltip" title="Actions..."><i className="fa fa-ellipsis-h attributeActivity inputGroupIcon"></i></a>
+                    <a className="btn btn-default" data-toggle="tooltip" title="Search..."><i className="fa fa-search attributeActivity inputGroupIcon"></i></a>
                 </div>
             </div>
         );
     },
-
-    onClick: function () {
-        this.setState({ isVisible : !this.state.isVisible });
-    }
-}).bind(this);
-
-//This component is responsible for the action button dropdown
-var AttributeAction = React.createClass({
-    render: function () {
-        return (
-            <div className="attributeAction">
-                <ul className="list-unstyled bt bb bl br">
-                    <li><a>Test item 1</a></li>
-                    <li><a>Test item 2</a></li>
-                    <li><a>Test item 3</a></li>
-                </ul>
-            </div>
-        )
-    }
-}).bind(this);
+});
 
 //
 var FacetedItemOrg = React.createClass({
@@ -744,20 +795,19 @@ var FacetedItemOrg = React.createClass({
             <div id={"" + this.props.name + ""} >
                 <div className="nav-tabs js facets-item bt bb bl br">
                     <a className="h3" href="#">{this.props.label}</a>
-                    <fieldset>
+{/*                    <fieldset>
                         <form className="facetedItem-layout">
                             <fieldset>
                                 <AttributeDropdown label="test1" name="test1"/>
                             </fieldset>
                         </form>
-                    </fieldset>
+                    </fieldset>*/}
                 </div>
             </div>
         );
     }
-}).bind(this);
+});
 
-//
 //
 var FacetedNavOrg = React.createClass({
     getInitialState: function () {
@@ -779,7 +829,7 @@ var FacetedNavOrg = React.createClass({
     onClick: function () {
         this.setState({ isVisible : !this.state.isVisible });
     }
-}).bind(this);
+});
 
 //
 var PersonResultElement = React.createClass({

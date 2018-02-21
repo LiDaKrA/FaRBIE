@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+
+
 .btn-file {
     position: relative;
     overflow: hidden;
@@ -840,35 +842,14 @@ header .header-spacer,.header .header-spacer {
 
 /* faceted item section */
 
-.facetedItemDropdown-content {
-    height: auto;
-    width: auto;
-    display: inline-block;
-    position: absolute;
-    background-color: #f9f9f9;
-    padding: 0;
-    min-width: 75%;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 10;
-    margin-left: 101%;
-    margin-inside: 0px;
-    overflow: visible;
-}
+
 
 .facetedItem-content a {
-    color: #444;
-    display: inline-block;
-    position: relative;
-    left: 5px;
-    padding: 5px 20px 0 10px; /** AAA **/
-    background-position: 100% -48px;
     /** AAA **/
     height: auto;
     overflow: hidden;
     font-size: 16px;
-    opacity: 1.0;
-    width: 100%;
-    box-sizing: content-box;
+
 }
 
 .facetedItem-content ul,li {
@@ -878,6 +859,11 @@ header .header-spacer,.header .header-spacer {
 
 .facetedItem-content a:hover a:visited a:link a:active, .facetedItemDropdown-content a:hover a:visited a:link a:active {
     text-decoration: none; !important;
+}
+
+.facetedContainerAlignment {
+    margin-top: 0;  !important;
+    margin-left: 0; !important;
 }
 
 /*- sources infobox section */
@@ -930,31 +916,52 @@ header .header-spacer,.header .header-spacer {
     100% { transform: rotate(360deg); }
 }*/
 
+/*- NAVBAR SEARCH BOX */
+
+.navSearchBoxHeader {
+    padding: 22px 0;
+    margin-left:25px;
+    width: 175%;
+}
+
+.navSearchBoxHeader input{
+    padding: 16px 10px;
+    font-size: 16px; !important;
+}
+
+.navBarExtra {
+    background-color: #99ccff;
+    border: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
 /*- SETTINGS BAR SECTION */
 
 .settingsBar {
     float: right;
     position: static;
     display: inline-block;
-    width: 25%;
+    /*width: 25%;*/
     background-color: #fff;
     overflow: auto;
+    font-size: 24px;
+    padding: 30px 0;
+    margin-left:13px;
+    transition: color 1s ease;
 }
 
 .settingsBar a {
-    float: left;
-    width: 20%;
+    /*float: left;*/
+    /*width: 20%;*/
     text-align: center;
-    padding: 15px 0;
+    margin-left:18px;
     transition: all 0.1s ease;
     color: #333;
-    font-size: 18px;
 }
 
 .settingsBar a:hover, .settingsBar_dropbtn:focus{
-/*    background-color: #333;
-    color: #2B78E4 !important;
-    !*color: white;*!*/
+
 }
 
 .settingsBar_sourcesOff {
@@ -965,10 +972,8 @@ header .header-spacer,.header .header-spacer {
     color: #2B78E4 !important;
 }
 
-
-
 .settingsBar_dropbtn {
-    padding: 16px;
+    /*padding: 16px;*/
     font-size: 16px;
     border: none;
     cursor: pointer;
@@ -1007,48 +1012,27 @@ header .header-spacer,.header .header-spacer {
     color: #999 !important;
 }
 
-/*
-.settings-bar-png li {margin-left:0;position:relative;margin-bottom:0.5em;}
-
-.settings-bar-png li:nth-child(1n):before {display:inline-block;width:200px;height:100px;content:"";
-    background-repeat:no-repeat;background-size: 100% 100%;margin-right:20px;}
-.settings-bar-png li:nth-child(1):before {
-    background: url("../images/FaRBIE_icons/settings-black.png") no-repeat center;
-    width: 1em;
-    height: 1em;
-}
-.settings-bar-png li:nth-child(2):before {
-    background: url("../images/FaRBIE_icons/sourcetokens-red.png") no-repeat center;
-    width: 1em;
-    height: 1em;
-}
-.settings-bar-png li:nth-child(3):before {
-    background: url("../images/FaRBIE_icons/caret-down-black.png") no-repeat right;
-    width: 1em;
-    height: 1em;
-}*/
-
-
-
 /*- VIEWS BAR SECTION */
 
 .viewsBar {
     float: right;
     position: static;
     display: inline-block;
-    width: 20%;
+    /*width: 25%;*/
     background-color: #fff;
     overflow: auto;
+    font-size: 24px;
+    padding: 30px 0;
+    margin-left:13px;
 }
 
 .viewsBar a {
-    float: left;
-    width: 20%;
+    /*float: left;*/
+    /*width: 20%;*/
     text-align: center;
-    padding: 12px 0;
+    margin-left:18px;
     transition: all 0.1s ease;
     color: #333;
-    font-size: 18px;
 }
 
 .viewsBar a:hover {
@@ -1064,58 +1048,119 @@ header .header-spacer,.header .header-spacer {
     color: #999 !important;
 }
 
+.inputGroupIcon {
+     padding: 0; !important;
+     margin: auto;
+ }
+
+.inputGroupIconHeader {
+    padding: 0; !important;
+    margin: auto;
+    font-size: 4px;
+}
+
+.badgeRound {
+    border-radius: 1em;
+    padding: 3px;
+    margin-left: 8px;
+}
+
 /*- ATTRIBUTEACTIVITY SECTION */
 
 .attributeActivity {
     float: left;
     position: static;
     display: inline;
-    margin-top: 0px; !important;
-    width: 100%;
-    height: 105%;
-    background-color: #fff;
+    margin-top: 0; !important;
+    margin-left: 0;
     overflow: auto;
+    background-color: #EEEEEE;
+    /*height: auto;*/
+    /*width: 700px;*/
+    /*max-width: 250px;*/
+}
+
+.attributeActivity a {
+    float: right;
+    position: static;
+    display: inline-block;
+    overflow: auto;
+    background-color: #EEEEEE;
 }
 
 .attributeActivity i {
-    float: right;
-    width: 25%;
-    text-align: center;
-    transition: all 0.1s ease;
-    color: #333;
-    font-size: 18px;
-    top: 0px;
+    font-size: 15px; !important;
+    background-color: #EEEEEE;
+}
+
+.attributeActivity i:hover, i:focus{
+    color: #2B78E4;
 }
 
 .attributeActivity input {
-    float: left;
-    padding: 0;
-    transition: all 0.1s ease;
-    color: #333;
-    font-size: 14px;
-    margin-top: 0px;
-    margin-bottom: 10px;
-    margin-left: 10px; !important;
-    position: relative;
-    box-sizing: border-box; !important;
-    width: auto;
-    max-width: 75%; !important;
-    min-width: 70%; !important;
-    left: 0px ;
-    background-color: white;
-    font-style: italic;
+    font-size: 12px; !important;
+    margin-left: 5px;
+    margin-bottom: 5px;
 }
 
-.attributeAction {
-    float: none;
+/*@override bootstrap button base*/
+.btn {
+    border: 0 none;
+}
+
+.btn:focus, .btn:active:focus, .btn.active:focus {
+    outline: 0 none;
+}
+
+/* end override */
+
+.attributeDropdown {
+    float: left;
     position: relative;
-    display: inline-block;
-    margin-top: 0px; !important;
-    width: 100%;
-    height: 105%;
-    background-color: #fff;
+    padding: 5px;
+    background-color: #F0F0F0;
     overflow: auto;
-    z-index: 11; !important;
+    align-self: flex-start;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    height: auto;
+    width: auto;
+    flex: 1 100%;
+    margin-top: 0;
+
+}
+
+.attributeDropdown-content {
+    position: absolute;
+    background-color: #f9f9f9;
+    background-position: 100% -500%;
+    padding: 5px 20px 0 10px; /** AAA **/
+
+    box-shadow: 0px 0px 16px 0px rgba(0,0,0,2);
+    /*box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.2);*/
+    z-index: 20;
+    /*margin-left: 101%;*/
+    overflow: visible;
+    box-sizing: content-box;
+    margin-top: -37px; !important;
+}
+
+.attributeDropdown-content ul{
+    -webkit-padding-start: 0; !important;
+}
+
+.attributeDropdown-content li{
+    margin-left: 3px; !important;
+}
+
+.facetItem {
+    overflow: auto;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    height: auto;
+    width: auto;
 }
 
 /* header - start */

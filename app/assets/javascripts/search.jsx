@@ -94,8 +94,8 @@ var KeywordsFile = React.createClass({
     }
 });
 
-//TO be replaced by SettingsBar
-
+//replaced by SettingsBar
+/*
 var LanguageBar = React.createClass({
     preSetLang: function(lang, e) {
         window.localStorage.lang = lang
@@ -121,57 +121,54 @@ var LanguageBar = React.createClass({
                 </div>)
         }
     }
-});
+});*/
 
-//To be improved
 var SettingsBar = React.createClass({
     preSetLang: function (lang, e) {
         window.localStorage.lang = lang
         this.props.onlangselect()
     },
-    settingsBar_dropdown: function () {
-        if (!event.target.matches('.settingsBar_dropbtn')) {
+    onClick: function () {
+        alert("The selected feature is not available.")
+    },
+    /*    settingsBar_dropdown: function () {
+            if (!event.target.matches('.settingsBar_dropbtn')) {
 
-            var dropdowns = document.getElementsByClassName("settingsBar_dropdown-content");
-            var i;
-            for (i = 0; i < dropdowns.length; i++) {
-                var openDropdown = dropdowns[i];
-                if (openDropdown.classList.contains('settingsBar_drop')) {
-                    openDropdown.classList.remove('settingsBar_drop');
+                var dropdowns = document.getElementsByClassName("settingsBar_dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('settingsBar_drop')) {
+                        openDropdown.classList.remove('settingsBar_drop');
+                    }
                 }
             }
-        }
-    },
+        },*/
     render: function () {
         let boundClickEng = this.preSetLang.bind(this, 'en');
         let boundClickGer = this.preSetLang.bind(this, 'de');
         /*let boundClickDropdown = this.settingsBar_dropdown(this, 'settingsBar_dropbtn');*/
         if (window.localStorage.getItem("lang") === "de") {
             return (
-                <div className="settingsBar">
-                    <a className="settingsBar_dropdown" href="#"><i className="fa fa-gears" ></i><div className="settingsBar_dropdown-content">
-                        <a href="#">File<i className="ffa fa-file-text"></i></a>
-                    </div></a>
-                    <a className="settingsBar_sourcesOff" href="#">0    <i className="fa fa-refresh"></i></a>
-                    <a href="#" onClick={boundClickEng}><strong>DE    </strong><i
-                        className="fa fa-caret-down"></i></a>
+                <div className="nav settingsBar input-group">
+
+                    <a className="btn btn-default settingsBar_disabled" data-toggle="tooltip" title="Settings" href="#" onClick={this.onClick}><i className="fa fa-gears" ></i></a>
+                    <a className="btn btn-default settingsBar_sourcesOff" href="#" data-toggle="tooltip" title="Source Tokens" onClick={this.onClick}>0    <i className="fa fa-refresh"></i></a>
+                    <a className="btn btn-default" href="#" data-toggle="tooltip" title="Select language" onClick={boundClickEng}><strong>DE    </strong><i className="fa fa-caret-down"></i></a>
                 </div>
             )
         } else {
             return (
-                <div className="settingsBar">
-                    <a className="settingsBar_dropdown" href="#"><i className="fa fa-gears" ></i><div className="settingsBar_dropdown-content">
-                        <a href="#">File<i className="ffa fa-file-text"></i></a>
-                    </div></a>
-                    <a className="settingsBar_sourcesOff" href="#"><strong>0    </strong><i className="fa fa-refresh"></i></a>
-                    <a href="#" onClick={boundClickGer}><strong>EN    </strong><i
-                        className="fa fa-caret-down"></i></a>
+                <div className="nav settingsBar input-group">
+                    <a className="btn btn-default settingsBar_disabled" href="#" data-toggle="tooltip" title="Settings" onClick={this.onClick}><i className="fa fa-gears" ></i></a>
+                    <a className="btn btn-default settingsBar_sourcesOff" href="#" data-toggle="tooltip" title="Source Tokens" onClick={this.onClick}><strong>0    </strong><i className="fa fa-refresh"></i></a>
+                    <a className="btn btn-default" href="#" data-toggle="tooltip" title="Select language" onClick={boundClickGer}><strong>EN    </strong><i className="fa fa-caret-down"></i></a>
                 </div>
             )
         }
     }
 
-})
+});
 
 var SearchBox = React.createClass({
     getSelectionLabel: function(){
